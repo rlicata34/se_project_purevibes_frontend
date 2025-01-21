@@ -1,5 +1,7 @@
+import "../blocks/Main.css";
+
 function Main() {
-  return <div>New App</div>;
+  return <main> New App</main>;
 }
 
 export default Main;
