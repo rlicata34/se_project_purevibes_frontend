@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import "../blocks/Navigation.css";
 
-import logo from "../assets/purevibes-logo.png";
+import logo from "../assets/purevibes-logo-white.png";
 import avatar from "../assets/avatar.jpg";
 
 function Navigation() {
