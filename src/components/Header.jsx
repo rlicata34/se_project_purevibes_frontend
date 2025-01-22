@@ -1,3 +1,5 @@
+import "../blocks/Header.css";
+
 function Header() {
   return <header className="header">PureVibes</header>;
 }
