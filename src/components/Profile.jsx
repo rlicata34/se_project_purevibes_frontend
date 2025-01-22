@@ -1,7 +1,7 @@
 import "../blocks/Profile.css";
 
 function Profile() {
-  return <div className="header">Profile</div>;
+  return <div className="profile">Profile</div>;
 }
 
 export default Profile;
