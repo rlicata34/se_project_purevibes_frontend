@@ -1,0 +1,23 @@
+.about__image {
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+}
+
+.about__description {
+  margin-left: 55px;
+  color: #fff;
+}
+
+.about__title {
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.15;
+  margin: 50px 0 24px;
+}
+.about__text {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.33;
+  margin: 0 0 20px;
+}

@@ -2,7 +2,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./Header";
-// import Main from "./Main";
+import Main from "./Main";
 import About from "./About";
 import Profile from "./Profile";
 
@@ -13,7 +13,15 @@ function App() {
     <div className="page">
       <div className="page__content">
         <Routes>
-          <Route path="/" element={<Header />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <Main />
+              </>
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
