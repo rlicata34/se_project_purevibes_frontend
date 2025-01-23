@@ -6,6 +6,7 @@ import Main from "./Main";
 import About from "./About";
 import Profile from "./Profile";
 import Footer from "./Footer";
+import WithNavigation from "./WithNavigation";
 
 import "../blocks/App.css";
 
@@ -23,7 +24,14 @@ function App() {
               </>
             }
           />
-          <Route path="/about" element={<About />} />
+          <Route
+            path="/about"
+            element={
+              <WithNavigation>
+                <About />
+              </WithNavigation>
+            }
+          />
           <Route path="/profile" element={<Profile />} />
         </Routes>
         <Footer />

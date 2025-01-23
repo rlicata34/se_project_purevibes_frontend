@@ -4,7 +4,7 @@ import "../blocks/About.css";
 
 function About() {
   return (
-    <div className="about">
+    <div className="about__content">
       <img src={authorImage} alt="Image of author" className="about__image" />
       <div className="about__description">
         <h2 className="about__title">About the Author</h2>
