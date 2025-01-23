@@ -5,6 +5,7 @@ import Header from "./Header";
 import Main from "./Main";
 import About from "./About";
 import Profile from "./Profile";
+import Footer from "./Footer";
 
 import "../blocks/App.css";
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
+        <Footer />
       </div>
     </div>
   );
