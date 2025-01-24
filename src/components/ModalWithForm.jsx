@@ -8,16 +8,26 @@ function ModalWithForm({
   title,
   onSubmit,
   children,
-  buttonClass,
+  activeModal,
+  isOpen,
 }) {
   return (
-    <Modal name={name} onClose={onClose}>
-      <h2 className="modal__title">{title}</h2>
-      <form className="modal__form" onSubmit={onSubmit}>
-        {children}
-        <button type="submit" class={buttonClass}></button>
-      </form>
-    </Modal>
+    activeModal && (
+      <Modal
+        name={name}
+        onClose={onClose}
+        activeModal={activeModal}
+        isOpen={isOpen}
+      >
+        <h2 className="modal__title">{title}</h2>
+        <form className="modal__form" onSubmit={onSubmit}>
+          {children}
+          <button type="submit" className="modal__submit-button">
+            Search
+          </button>
+        </form>
+      </Modal>
+    )
   );
 }
 

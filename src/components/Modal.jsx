@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import "../blocks/Modal.css";
 
-function Modal({ name, onClose, children }) {
+function Modal({ isOpen, name, onClose, children, activeModal }) {
   useEffect(() => {
     const handleEscape = (evt) => {
       if (evt.key === "Escape") {
@@ -15,19 +15,24 @@ function Modal({ name, onClose, children }) {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [onClose]);
 
-  const handleOverlay = () => {
+  const handleOverlay = (evt) => {
     if (evt.target === evt.currentTarget) {
       onClose();
     }
   };
 
   return (
-    <div className={`modal modal_type_${name}`} onClick={handleOverlay}>
-      <div className="modal__container">
-        {children}
-        <button className="modal__close-buttton" onClick={onClose} />
+    activeModal && (
+      <div
+        className={`modal ${isOpen ? "modal_opened" : ""}`}
+        onClick={handleOverlay}
+      >
+        <div className="modal__content">
+          {children}
+          <button className="modal__close" onClick={onClose} />
+        </div>
       </div>
-    </div>
+    )
   );
 }
 

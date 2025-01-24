@@ -7,11 +7,20 @@ import About from "./About";
 import Profile from "./Profile";
 import Footer from "./Footer";
 import WithNavigation from "./WithNavigation";
+import SearchModal from "./SearchModal";
 
 import "../blocks/App.css";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
+
+  const onClose = () => {
+    setActiveModal("");
+  };
+
+  const handleDiscoverClick = () => {
+    setActiveModal("search-form");
+  };
 
   return (
     <div className="page">
@@ -21,7 +30,7 @@ function App() {
             path="/"
             element={
               <>
-                <Header />
+                <Header handleDiscoverClick={handleDiscoverClick} />
                 <Main />
               </>
             }
@@ -38,6 +47,11 @@ function App() {
         </Routes>
         <Footer />
       </div>
+      <SearchModal
+        onClose={onClose}
+        activeModal={activeModal}
+        isOpen={activeModal === "search-form"}
+      />
     </div>
   );
 }

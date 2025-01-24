@@ -1,7 +1,7 @@
 import Navigation from "./Navigation";
 import "../blocks/Header.css";
 
-function Header() {
+function Header({ handleDiscoverClick }) {
   return (
     <header className="header">
       <div className="header__content">
@@ -10,7 +10,13 @@ function Header() {
         <p className="header__text">
           Lifetime memories are just a few clicks away
         </p>
-        <button className="header__form-button">Discover</button>
+        <button
+          type="button"
+          className="header__form-button"
+          onClick={handleDiscoverClick}
+        >
+          Discover
+        </button>
       </div>
     </header>
   );

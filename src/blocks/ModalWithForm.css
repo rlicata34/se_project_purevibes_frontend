@@ -1,0 +1,25 @@
+.modal__title {
+  margin: 0 0 24px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.16;
+  /*font-family: "Cabinet Grotesk", sans-serif;*/
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__submit-button {
+  max-width: 358px;
+  height: 64px;
+  border: none;
+  border-radius: 100px;
+  color: #b6bcbf;
+  background-color: #e6e8eb;
+  margin: 24px 0 0;
+  padding: 0;
+  cursor: pointer;
+  font-size: 18px;
+}
