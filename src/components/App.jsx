@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./Header";
@@ -11,6 +11,8 @@ import WithNavigation from "./WithNavigation";
 import "../blocks/App.css";
 
 function App() {
+  const [activeModal, setActiveModal] = useState("");
+
   return (
     <div className="page">
       <div className="page__content">
