@@ -13,6 +13,7 @@ import "../blocks/App.css";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClose = () => {
     setActiveModal("");
@@ -31,7 +32,7 @@ function App() {
             element={
               <>
                 <Header handleDiscoverClick={handleDiscoverClick} />
-                <Main />
+                <Main isLoading={isLoading} />
               </>
             }
           />
