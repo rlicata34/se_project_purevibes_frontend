@@ -4,10 +4,16 @@ import About from "./About";
 
 import "../blocks/Main.css";
 
-function Main({ isLoading, handleLoadMore, searchresults, hasMore }) {
+function Main({
+  isLoading,
+  showPreloader,
+  handleLoadMore,
+  searchresults,
+  hasMore,
+}) {
   return (
     <main className="content">
-      {isLoading ? (
+      {isLoading && showPreloader ? (
         <Preloader isLoading={isLoading} />
       ) : (
         <section className="results">

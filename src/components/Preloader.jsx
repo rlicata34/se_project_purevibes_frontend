@@ -1,14 +1,12 @@
 import "../blocks/Preloader.css";
 
-function Preloader({ isLoading }) {
+function Preloader() {
   return (
-    isLoading && (
-      <div className="preloader__content">
-        {" "}
-        <div className="circle-preloader"></div>
-        <div className="preloader__text">Searching for events...</div>
-      </div>
-    )
+    <div className="preloader__content">
+      {" "}
+      <div className="circle-preloader"></div>
+      <div className="preloader__text">Searching for events...</div>
+    </div>
   );
 }
 

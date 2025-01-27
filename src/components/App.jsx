@@ -18,6 +18,7 @@ import "../blocks/App.css";
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPreloader, setShowPreloader] = useState(false); // State for controlling preloader
   const [searchresults, setSearchResults] = useState([]);
   const [resultsToShow, setResultsToShow] = useState(3); // Number of results to show
 
@@ -39,6 +40,8 @@ function App() {
 
   const fetchAndSetSearchResults = (searchParams) => {
     setIsLoading(true);
+    setShowPreloader(true);
+    setSearchResults([]);
     getEvents(APIKey, searchParams)
       .then((eventsData) => {
         const filteredEvents = filterEventsData(eventsData);
@@ -50,7 +53,11 @@ function App() {
         console.error("Error fetching events", err);
       })
       .finally(() => {
-        setIsLoading(false);
+        // Set a timeout to show the preloader for 2 seconds before displaying results
+        setTimeout(() => {
+          setIsLoading(false); // Hide the loader
+          setShowPreloader(false); // Stop showing the preloader
+        }, 2000);
         closeModal();
       });
   };
@@ -74,6 +81,7 @@ function App() {
                 />
                 <Main
                   isLoading={isLoading}
+                  showPreloader={showPreloader}
                   searchresults={searchresults.slice(0, resultsToShow)}
                   handleLoadMore={handleLoadMore}
                   hasMore={resultsToShow < searchresults.length}
