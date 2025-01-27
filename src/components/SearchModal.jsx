@@ -5,7 +5,12 @@ import { useForm } from "../hooks/useForm";
 
 import "../blocks/SearchModal.css";
 
-function SearchModal({ onClose, isOpen, activeModal }) {
+function SearchModal({
+  onClose,
+  isOpen,
+  activeModal,
+  fetchAndSetSearchResults,
+}) {
   const [isButtonActive, setIsButtonActive] = useState(false);
 
   const { values, handleChange, setValues } = useForm({
@@ -16,7 +21,11 @@ function SearchModal({ onClose, isOpen, activeModal }) {
     endDate: "",
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    fetchAndSetSearchResults(values);
+  };
+
   return (
     <ModalWithForm
       name="search-modal"
@@ -48,7 +57,7 @@ function SearchModal({ onClose, isOpen, activeModal }) {
           className="modal__input"
           name="artist"
           value={values.artist}
-          placeholder="artist"
+          placeholder="Artist"
           onChange={handleChange}
         />
       </label>
@@ -59,7 +68,7 @@ function SearchModal({ onClose, isOpen, activeModal }) {
           className="modal__input"
           name="city"
           value={values.city}
-          placeholder="city"
+          placeholder="City"
           onChange={handleChange}
         />
       </label>

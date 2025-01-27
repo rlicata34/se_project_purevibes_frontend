@@ -1,3 +1,13 @@
 .content {
   padding: 0 100px;
 }
+
+.results__button {
+  width: 288px;
+  height: 64px;
+  border-radius: 80px;
+  background-color: #fff;
+  border: none;
+  margin: 64px auto 0;
+  cursor: pointer;
+}

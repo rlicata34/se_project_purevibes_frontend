@@ -11,15 +11,17 @@ import SearchModal from "./SearchModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import { APIKey } from "../utils/constants";
-import { getEvents } from "../utils/ticketmasterApi";
+import { getEvents, filterEventsData } from "../utils/ticketmasterApi";
 
 import "../blocks/App.css";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [searchresults, setSearchResults] = useState([]);
+  const [resultsToShow, setResultsToShow] = useState(3); // Number of results to show
 
-  const onClose = () => {
+  const closeModal = () => {
     setActiveModal("");
   };
 
@@ -35,6 +37,28 @@ function App() {
     setActiveModal("register-form");
   };
 
+  const fetchAndSetSearchResults = (searchParams) => {
+    setIsLoading(true);
+    getEvents(APIKey, searchParams)
+      .then((eventsData) => {
+        const filteredEvents = filterEventsData(eventsData);
+        setSearchResults(filteredEvents);
+        console.log(searchresults);
+        setResultsToShow(3);
+      })
+      .catch((err) => {
+        console.error("Error fetching events", err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        closeModal();
+      });
+  };
+
+  const handleLoadMore = () => {
+    setResultsToShow((prev) => prev + 3); // Increment results to show by 3
+  };
+
   return (
     <div className="page">
       <div className="page__content">
@@ -48,7 +72,12 @@ function App() {
                   handleLoginClick={handleLoginClick}
                   handleRegisterClick={handleRegisterClick}
                 />
-                <Main isLoading={isLoading} />
+                <Main
+                  isLoading={isLoading}
+                  searchresults={searchresults.slice(0, resultsToShow)}
+                  handleLoadMore={handleLoadMore}
+                  hasMore={resultsToShow < searchresults.length}
+                />
               </>
             }
           />
@@ -68,18 +97,19 @@ function App() {
         <Footer />
       </div>
       <SearchModal
-        onClose={onClose}
+        onClose={closeModal}
         activeModal={activeModal}
         isOpen={activeModal === "search-form"}
+        fetchAndSetSearchResults={fetchAndSetSearchResults}
       />
       <LoginModal
-        onClose={onClose}
+        onClose={closeModal}
         activeModal={activeModal}
         isOpen={activeModal === "login-form"}
         handleRegisterClick={handleRegisterClick}
       />
       <RegisterModal
-        onClose={onClose}
+        onClose={closeModal}
         activeModal={activeModal}
         isOpen={activeModal === "register-form"}
         handleLoginClick={handleLoginClick}
