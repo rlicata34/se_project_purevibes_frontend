@@ -1,9 +1,12 @@
+import { useState } from "react";
+
 import { useForm } from "../hooks/useForm";
 import ModalWithForm from "./ModalWithForm";
 
 import "../blocks/LoginModal.css";
 
 function LoginModal({ onClose, isOpen, activeModal }) {
+  const [isButtonActive, setIsButtonActive] = useState(false);
   const { values, handleChange, setValues } = useForm({
     email: "",
     password: "",
@@ -13,14 +16,15 @@ function LoginModal({ onClose, isOpen, activeModal }) {
   return (
     <ModalWithForm
       name="login-modal"
-      title="Sign in"
+      title="Sign In"
       isOpen={isOpen}
       activeModal={activeModal}
       onClose={onClose}
       onSubmit={handleSubmit}
-      // buttonClass={`modal__submit-button-discover ${
-      //   isButtonActive ? "modal__submit-button_active" : ""
-      // }`}
+      buttonClass={`modal__submit-button-login ${
+        isButtonActive ? "modal__submit-button_active" : ""
+      }`}
+      buttonText="Log In"
     >
       <label className="modal__label">
         Email*{" "}
@@ -44,6 +48,7 @@ function LoginModal({ onClose, isOpen, activeModal }) {
           onChange={handleChange}
         />
       </label>
+      <button className="login-modal__button">or Sign Up</button>
     </ModalWithForm>
   );
 }

@@ -1,9 +1,12 @@
 import Navigation from "./Navigation";
 
-function WithNavigation({ children }) {
+function WithNavigation({ children, handleLoginClick, handleRegisterClick }) {
   return (
     <>
-      <Navigation />
+      <Navigation
+        handleLoginClick={handleLoginClick}
+        handleRegisterClick={handleRegisterClick}
+      />
       {children}
     </>
   );

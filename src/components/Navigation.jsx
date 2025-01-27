@@ -5,7 +5,7 @@ import "../blocks/Navigation.css";
 import logo from "../assets/purevibes-logo-white.png";
 import avatar from "../assets/avatar.jpg";
 
-function Navigation({ handleLoginClick }) {
+function Navigation({ handleLoginClick, handleRegisterClick }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -23,6 +23,13 @@ function Navigation({ handleLoginClick }) {
         onClick={handleLoginClick}
       >
         Sign in
+      </button>
+      <button
+        className="nav__register-button"
+        type="button"
+        onClick={handleRegisterClick}
+      >
+        Sign up
       </button>
       <Link to="/" className="nav__link">
         Home

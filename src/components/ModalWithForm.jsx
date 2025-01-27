@@ -10,6 +10,8 @@ function ModalWithForm({
   children,
   activeModal,
   isOpen,
+  buttonClass,
+  buttonText,
 }) {
   return (
     activeModal && (
@@ -22,8 +24,8 @@ function ModalWithForm({
         <h2 className="modal__title">{title}</h2>
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
-          <button type="submit" className="modal__submit-button">
-            Search
+          <button type="submit" className={buttonClass}>
+            {buttonText}
           </button>
         </form>
       </Modal>

@@ -1,11 +1,18 @@
 import Navigation from "./Navigation";
 import "../blocks/Header.css";
 
-function Header({ handleDiscoverClick, handleLoginClick }) {
+function Header({
+  handleDiscoverClick,
+  handleLoginClick,
+  handleRegisterClick,
+}) {
   return (
     <header className="header">
       <div className="header__content">
-        <Navigation handleLoginClick={handleLoginClick} />
+        <Navigation
+          handleLoginClick={handleLoginClick}
+          handleRegisterClick={handleRegisterClick}
+        />
         <h1 className="header__title">Welcome to PureVibes</h1>
         <p className="header__text">
           Lifetime memories are just a few clicks away

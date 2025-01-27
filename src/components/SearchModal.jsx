@@ -1,9 +1,13 @@
+import { useState } from "react";
+
 import ModalWithForm from "./ModalWithForm";
 import { useForm } from "../hooks/useForm";
 
 import "../blocks/SearchModal.css";
 
 function SearchModal({ onClose, isOpen, activeModal }) {
+  const [isButtonActive, setIsButtonActive] = useState(false);
+
   const { values, handleChange, setValues } = useForm({
     artist: "",
     city: "",
@@ -20,9 +24,10 @@ function SearchModal({ onClose, isOpen, activeModal }) {
       activeModal={activeModal}
       onClose={onClose}
       onSubmit={handleSubmit}
-      // buttonClass={`modal__submit-button-discover ${
-      //   isButtonActive ? "modal__submit-button_active" : ""
-      // }`}
+      buttonClass={`modal__submit-button-discover ${
+        isButtonActive ? "modal__submit-button_active" : ""
+      }`}
+      buttonText="Search"
     >
       <label className="modal__label">
         Artist

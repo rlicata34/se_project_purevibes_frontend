@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import WithNavigation from "./WithNavigation";
 import SearchModal from "./SearchModal";
 import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
 
 import "../blocks/App.css";
 
@@ -28,6 +29,10 @@ function App() {
     setActiveModal("login-form");
   };
 
+  const handleRegisterClick = () => {
+    setActiveModal("register-form");
+  };
+
   return (
     <div className="page">
       <div className="page__content">
@@ -39,6 +44,7 @@ function App() {
                 <Header
                   handleDiscoverClick={handleDiscoverClick}
                   handleLoginClick={handleLoginClick}
+                  handleRegisterClick={handleRegisterClick}
                 />
                 <Main isLoading={isLoading} />
               </>
@@ -47,7 +53,10 @@ function App() {
           <Route
             path="/about"
             element={
-              <WithNavigation>
+              <WithNavigation
+                handleLoginClick={handleLoginClick}
+                handleRegisterClick={handleRegisterClick}
+              >
                 <About />
               </WithNavigation>
             }
@@ -65,6 +74,11 @@ function App() {
         onClose={onClose}
         activeModal={activeModal}
         isOpen={activeModal === "login-form"}
+      />
+      <RegisterModal
+        onClose={onClose}
+        activeModal={activeModal}
+        isOpen={activeModal === "register-form"}
       />
     </div>
   );
