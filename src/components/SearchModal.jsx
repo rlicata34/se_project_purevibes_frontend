@@ -9,6 +9,7 @@ function SearchModal({ onClose, isOpen, activeModal }) {
   const [isButtonActive, setIsButtonActive] = useState(false);
 
   const { values, handleChange, setValues } = useForm({
+    genre: "",
     artist: "",
     city: "",
     startDate: "",
@@ -29,6 +30,17 @@ function SearchModal({ onClose, isOpen, activeModal }) {
       }`}
       buttonText="Search"
     >
+      <label className="modal__label">
+        Genre
+        <input
+          type="text"
+          className="modal__input"
+          name="genre"
+          value={values.genre}
+          placeholder="Genre"
+          onChange={handleChange}
+        />
+      </label>
       <label className="modal__label">
         Artist
         <input

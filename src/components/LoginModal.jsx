@@ -5,7 +5,7 @@ import ModalWithForm from "./ModalWithForm";
 
 import "../blocks/LoginModal.css";
 
-function LoginModal({ onClose, isOpen, activeModal }) {
+function LoginModal({ onClose, isOpen, activeModal, handleRegisterClick }) {
   const [isButtonActive, setIsButtonActive] = useState(false);
   const { values, handleChange, setValues } = useForm({
     email: "",
@@ -48,7 +48,13 @@ function LoginModal({ onClose, isOpen, activeModal }) {
           onChange={handleChange}
         />
       </label>
-      <button className="login-modal__button">or Sign Up</button>
+      <button
+        className="login-modal__button"
+        type="button"
+        onClick={handleRegisterClick}
+      >
+        or Sign Up
+      </button>
     </ModalWithForm>
   );
 }

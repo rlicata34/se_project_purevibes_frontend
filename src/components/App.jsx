@@ -10,6 +10,8 @@ import WithNavigation from "./WithNavigation";
 import SearchModal from "./SearchModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
+import { APIKey } from "../utils/constants";
+import { getEvents } from "../utils/ticketmasterApi";
 
 import "../blocks/App.css";
 
@@ -74,11 +76,13 @@ function App() {
         onClose={onClose}
         activeModal={activeModal}
         isOpen={activeModal === "login-form"}
+        handleRegisterClick={handleRegisterClick}
       />
       <RegisterModal
         onClose={onClose}
         activeModal={activeModal}
         isOpen={activeModal === "register-form"}
+        handleLoginClick={handleLoginClick}
       />
     </div>
   );
