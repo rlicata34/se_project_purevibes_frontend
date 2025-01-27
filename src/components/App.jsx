@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import Footer from "./Footer";
 import WithNavigation from "./WithNavigation";
 import SearchModal from "./SearchModal";
+import LoginModal from "./LoginModal";
 
 import "../blocks/App.css";
 
@@ -23,6 +24,10 @@ function App() {
     setActiveModal("search-form");
   };
 
+  const handleLoginClick = () => {
+    setActiveModal("login-form");
+  };
+
   return (
     <div className="page">
       <div className="page__content">
@@ -31,7 +36,10 @@ function App() {
             path="/"
             element={
               <>
-                <Header handleDiscoverClick={handleDiscoverClick} />
+                <Header
+                  handleDiscoverClick={handleDiscoverClick}
+                  handleLoginClick={handleLoginClick}
+                />
                 <Main isLoading={isLoading} />
               </>
             }
@@ -52,6 +60,11 @@ function App() {
         onClose={onClose}
         activeModal={activeModal}
         isOpen={activeModal === "search-form"}
+      />
+      <LoginModal
+        onClose={onClose}
+        activeModal={activeModal}
+        isOpen={activeModal === "login-form"}
       />
     </div>
   );
