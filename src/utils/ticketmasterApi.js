@@ -5,20 +5,15 @@ function checkResponse(res) {
   return Promise.reject(`Error: ${res.status}, ${error.message}`);
 }
 
-export const getEvents = (
-  APIKey,
-  { artist, genre, city, startDate, endDate }
-) => {
-  const url = new URL("https://app.ticketmaster.com/discovery/v2/events.json");
+export const getEvents = ({ artist, genre, city, startDate, endDate }) => {
+  const url = new URL("http://35.190.152.185:3002/api/events");
 
   // Add query parameters dynamically
-  url.searchParams.append("apikey", APIKey);
-  if (artist) url.searchParams.append("keyword", artist);
-  if (genre) url.searchParams.append("classificationName", genre);
+  if (artist) url.searchParams.append("artist", artist);
+  if (genre) url.searchParams.append("genre", genre);
   if (city) url.searchParams.append("city", city);
-  if (startDate)
-    url.searchParams.append("startDateTime", `${startDate}T00:00:00Z`); // Format for Ticketmaster API
-  if (endDate) url.searchParams.append("endDateTime", `${endDate}T23:59:59Z`); // Format for Ticketmaster API
+  if (startDate) url.searchParams.append("startDate", `${startDate}T00:00:00Z`); // Format for Ticketmaster API
+  if (endDate) url.searchParams.append("endDate", `${endDate}T23:59:59Z`); // Format for Ticketmaster API
 
   return fetch(url.toString()).then(checkResponse);
 };
