@@ -24,11 +24,6 @@ function RegisterModal({
     evt.preventDefault();
     const { email, password, username, avatar } = values;
 
-    if (!email || !password || !username || !avatar) {
-      alert("All fields are required!");
-      return;
-    }
-
     handleRegister(email, password, username, avatar);
   };
   return (

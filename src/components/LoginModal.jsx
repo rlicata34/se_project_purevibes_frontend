@@ -5,14 +5,25 @@ import ModalWithForm from "./ModalWithForm";
 
 import "../blocks/LoginModal.css";
 
-function LoginModal({ onClose, isOpen, activeModal, handleRegisterClick }) {
+function LoginModal({
+  onClose,
+  isOpen,
+  activeModal,
+  handleRegisterClick,
+  handleLogin,
+}) {
   const [isButtonActive, setIsButtonActive] = useState(false);
   const { values, handleChange, setValues } = useForm({
     email: "",
     password: "",
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const { email, password } = values;
+
+    handleLogin(email, password);
+  };
   return (
     <ModalWithForm
       name="login-modal"

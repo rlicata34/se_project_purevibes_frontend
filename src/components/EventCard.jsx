@@ -1,10 +1,19 @@
 import "../blocks/EventCard.css";
 
-function EventCard({ event }) {
+function EventCard({ event, handleCardBookmark, isBookmarked }) {
+  const toggleBookmark = () => {
+    handleCardBookmark(event); // Call the function passed from App
+  };
   return (
     <>
       <li className="card">
         <img src={event.image} alt="Imgage of show" className="card__image" />
+        <button
+          className={`card__bookmark ${
+            isBookmarked ? "card__bookmark_active" : ""
+          }`}
+          onClick={toggleBookmark}
+        ></button>
         <div className="card__description">
           <h3 className="card__name">{event.name}</h3>
           <p className="card__date">{event.startDateTime}</p>

@@ -12,6 +12,8 @@ function Main({
   hasMore,
   hasSearched,
   handleTryAgainClick,
+  handleCardBookmark,
+  bookmarkedEvents,
 }) {
   return (
     <main className="content">
@@ -23,6 +25,8 @@ function Main({
             events={searchresults}
             hasSearched={hasSearched}
             handleTryAgainClick={handleTryAgainClick}
+            handleCardBookmark={handleCardBookmark}
+            bookmarkedEvents={bookmarkedEvents}
           />
           {hasMore && (
             <button

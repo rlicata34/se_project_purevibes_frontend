@@ -31,6 +31,7 @@ export const filterEventsData = (data) => {
 
   // Map the events to extract the desired fields
   return data._embedded.events.map((event) => ({
+    id: event.id,
     name: event.name,
     startDateTime: event.dates?.start?.dateTime || "N/A",
     endDateTime: event.dates?.end?.dateTime || "N/A",

@@ -4,6 +4,7 @@
   flex-direction: column;
   background-color: #fff;
   border-radius: 16px;
+  position: relative;
 }
 
 .card__image {
@@ -11,6 +12,21 @@
   height: 272px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
+}
+
+.card__bookmark {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: url("../assets/bookmark-unclicked.svg") center no-repeat;
+  width: 40px;
+  height: 40px;
+  border: none;
+  padding: none;
+}
+
+.card__bookmark_active {
+  background: url("../assets/bookmark-clicked.svg") center no-repeat;
 }
 
 .card__description {

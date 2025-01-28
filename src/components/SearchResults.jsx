@@ -2,7 +2,13 @@ import EventCard from "./EventCard";
 import notFoundIcon from "../assets/not-found-icon.svg";
 import "../blocks/SearchResults.css";
 
-function SearchResults({ events, hasSearched, handleTryAgainClick }) {
+function SearchResults({
+  events,
+  hasSearched,
+  handleTryAgainClick,
+  handleCardBookmark,
+  bookmarkedEvents,
+}) {
   if (!hasSearched) {
     return null;
   }
@@ -11,7 +17,15 @@ function SearchResults({ events, hasSearched, handleTryAgainClick }) {
       <h2 className="results__title">Search results</h2>
       <ul className="cards__list">
         {events.map((event) => {
-          return <EventCard key={event.url} event={event} />;
+          return (
+            <EventCard
+              key={event.url}
+              event={event}
+              handleCardBookmark={handleCardBookmark}
+              bookmarkedEvents={bookmarkedEvents}
+              isBookmarked={bookmarkedEvents.some((evt) => evt.id === event.id)}
+            />
+          );
         })}
       </ul>
     </div>

@@ -30,8 +30,7 @@ function App() {
     email: "",
     avatar: "",
   });
-
-  console.log(isLoggedIn);
+  const [bookmarkedEvents, setBookmarkedEvents] = useState([]); // Store bookmarked events
 
   // const updateCurrentUser = (user) => setCurrentUser(user);
   const clearCurrentUser = () =>
@@ -89,6 +88,10 @@ function App() {
   };
 
   const handleRegister = (email, password, username, avatar) => {
+    if (!email || !password || !username || !avatar) {
+      console.error("All fields are required!");
+      return;
+    }
     register(email, password)
       .then((res) => {
         console.log("User registered", res.user);
@@ -99,6 +102,38 @@ function App() {
       .catch((err) => {
         console.error("Registration failed", err.message);
       });
+  };
+
+  const handleLogin = (email, password) => {
+    if (!email || !password) {
+      console.error("Missing email or password");
+      return;
+    }
+    authorize(email, password)
+      .then((res) => {
+        console.log("Login succesful, token:", res.token);
+        setIsLoggedIn(true);
+        setCurrentUser({ email });
+        closeModal();
+      })
+      .catch((err) => {
+        console.error("Login failed:", err.message);
+      });
+  };
+
+  const handleCardBookmark = (event) => {
+    setBookmarkedEvents((prev) => {
+      // Check if the event is already bookmarked
+      const isAlreadyBookmarked = prev.some((evt) => evt.id === event.id);
+      if (isAlreadyBookmarked) {
+        // Remove the event from bookmarks
+        return prev.filter((evt) => evt.id !== event.id);
+      } else {
+        // Add the event to bookmarks
+        console.log(event);
+        return [...prev, event];
+      }
+    });
   };
 
   return (
@@ -124,6 +159,8 @@ function App() {
                     hasMore={resultsToShow < searchresults.length}
                     hasSearched={hasSearched}
                     handleTryAgainClick={handleTryAgainClick}
+                    handleCardBookmark={handleCardBookmark}
+                    bookmarkedEvents={bookmarkedEvents}
                   />
                 </>
               }
@@ -140,7 +177,16 @@ function App() {
                 </WithNavigation>
               }
             />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  bookmarkedEvents={bookmarkedEvents}
+                  handleCardBookmark={handleCardBookmark}
+                  isLoggedIn={isLoggedIn}
+                />
+              }
+            />
           </Routes>
           <Footer />
         </div>
@@ -155,6 +201,7 @@ function App() {
           activeModal={activeModal}
           isOpen={activeModal === "login-form"}
           handleRegisterClick={handleRegisterClick}
+          handleLogin={handleLogin}
         />
         <RegisterModal
           onClose={closeModal}
