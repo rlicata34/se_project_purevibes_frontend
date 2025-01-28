@@ -1,0 +1,9 @@
+.profile {
+  padding: 0 60px;
+}
+
+.profile__title {
+  color: #fff;
+  font-size: 40px;
+  line-height: 1.15;
+}

@@ -23,6 +23,7 @@
   height: 40px;
   border: none;
   padding: none;
+  cursor: pointer;
 }
 
 .card__bookmark_active {
@@ -42,10 +43,18 @@
 }
 
 .card__date {
+  font-size: 26px;
+  margin: 25px 0 0;
 }
 
 .card__location {
+  font-size: 26px;
+  margin: 25px 0 0;
 }
 
 .card__link {
+  font-size: 26px;
+  margin: 25px 0 0;
+  cursor: pointer;
+  text-decoration: none;
 }
