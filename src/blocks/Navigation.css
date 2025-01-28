@@ -43,3 +43,18 @@
   height: 40px;
   cursor: pointer;
 }
+
+.nav__login-button {
+  margin: 0 20px 0 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+}
+
+.nav__register-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+}

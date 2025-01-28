@@ -24,11 +24,14 @@ function App() {
   const [searchresults, setSearchResults] = useState([]);
   const [resultsToShow, setResultsToShow] = useState(3); // Number of results to show
   const [hasSearched, setHasSearched] = useState(false); // Track if a search has been performed
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     username: "",
     email: "",
     avatar: "",
   });
+
+  console.log(isLoggedIn);
 
   // const updateCurrentUser = (user) => setCurrentUser(user);
   const clearCurrentUser = () =>
@@ -89,6 +92,7 @@ function App() {
     register(email, password)
       .then((res) => {
         console.log("User registered", res.user);
+        setIsLoggedIn(true);
         setCurrentUser({ ...res.user, username, avatar });
         closeModal();
       })
@@ -110,6 +114,7 @@ function App() {
                     handleDiscoverClick={handleDiscoverClick}
                     handleLoginClick={handleLoginClick}
                     handleRegisterClick={handleRegisterClick}
+                    isLoggedIn={isLoggedIn}
                   />
                   <Main
                     isLoading={isLoading}
@@ -129,6 +134,7 @@ function App() {
                 <WithNavigation
                   handleLoginClick={handleLoginClick}
                   handleRegisterClick={handleRegisterClick}
+                  isLoggedIn={isLoggedIn}
                 >
                   <About />
                 </WithNavigation>
