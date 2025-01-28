@@ -19,3 +19,39 @@
   gap: 16px;
   padding: 0;
 }
+
+.results-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.results-not-found__image {
+  width: 83px;
+  height: 83px;
+}
+
+.results-not-found__title {
+  color: #fff;
+  font-weight: 500;
+  font-size: 50px;
+}
+
+.results-not-found__button {
+  margin: 90px auto;
+  width: 150px;
+  background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient button */
+  color: white;
+  font-size: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.results-not-found__button:hover {
+  opacity: 0.95;
+  transform: scale(1.05); /* Slightly enlarges the button */
+}

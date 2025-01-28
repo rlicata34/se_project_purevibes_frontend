@@ -10,6 +10,7 @@ function Main({
   handleLoadMore,
   searchresults,
   hasMore,
+  handleTryAgainClick,
 }) {
   return (
     <main className="content">
@@ -17,7 +18,10 @@ function Main({
         <Preloader isLoading={isLoading} />
       ) : (
         <section className="results">
-          <SearchResults events={searchresults} />
+          <SearchResults
+            events={searchresults}
+            handleTryAgainClick={handleTryAgainClick}
+          />
           {hasMore && (
             <button
               className="results__button"

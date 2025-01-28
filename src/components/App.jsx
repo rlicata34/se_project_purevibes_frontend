@@ -57,7 +57,7 @@ function App() {
         setTimeout(() => {
           setIsLoading(false); // Hide the loader
           setShowPreloader(false); // Stop showing the preloader
-        }, 2000);
+        }, 1000);
         closeModal();
       });
   };
@@ -85,6 +85,7 @@ function App() {
                   searchresults={searchresults.slice(0, resultsToShow)}
                   handleLoadMore={handleLoadMore}
                   hasMore={resultsToShow < searchresults.length}
+                  handleTryAgainClick={handleDiscoverClick}
                 />
               </>
             }
