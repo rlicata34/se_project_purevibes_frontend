@@ -6,6 +6,7 @@ function Header({
   handleLoginClick,
   handleRegisterClick,
   isLoggedIn,
+  handleLogout,
 }) {
   return (
     <header className="header">
@@ -14,6 +15,7 @@ function Header({
           handleLoginClick={handleLoginClick}
           handleRegisterClick={handleRegisterClick}
           isLoggedIn={isLoggedIn}
+          handleLogout={handleLogout}
         />
         <h1 className="header__title">Welcome to PureVibes</h1>
         <p className="header__text">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./Header";
@@ -10,6 +10,7 @@ import WithNavigation from "./WithNavigation";
 import SearchModal from "./SearchModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
+import ProtectedRoute from "./ProtectedRoute";
 import { APIKey } from "../utils/constants";
 import { authorize, checkToken, register } from "../utils/auth";
 import { getEvents, filterEventsData } from "../utils/ticketmasterApi";
@@ -18,19 +19,40 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import "../blocks/App.css";
 
 function App() {
+  /* ------------------------------- App states --------------------------------------- */
+
   const [activeModal, setActiveModal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showPreloader, setShowPreloader] = useState(false); // State for controlling preloader
+  const [showPreloader, setShowPreloader] = useState(false);
   const [searchresults, setSearchResults] = useState([]);
-  const [resultsToShow, setResultsToShow] = useState(3); // Number of results to show
-  const [hasSearched, setHasSearched] = useState(false); // Track if a search has been performed
+  const [resultsToShow, setResultsToShow] = useState(3);
+  const [hasSearched, setHasSearched] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
   const [currentUser, setCurrentUser] = useState({
     username: "",
     email: "",
     avatar: "",
   });
-  const [bookmarkedEvents, setBookmarkedEvents] = useState([]); // Store bookmarked events
+
+  /* --------------------------------- useEffect functions ---------------------------- */
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      checkToken(token)
+        .then((res) => {
+          setIsLoggedIn(true);
+          setCurrentUser(res.data);
+        })
+        .catch((err) => {
+          console.error("Token validation failed:", err);
+          localStorage.removeItem("authToken");
+        });
+    }
+  }, []);
+
+  /* --------------------------------- Handlers/functions ----------------------------- */
 
   // const updateCurrentUser = (user) => setCurrentUser(user);
   const clearCurrentUser = () =>
@@ -58,67 +80,8 @@ function App() {
     setSearchResults([]);
   };
 
-  const fetchAndSetSearchResults = (searchParams) => {
-    setIsLoading(true);
-    setShowPreloader(true);
-    setSearchResults([]);
-    getEvents(APIKey, searchParams)
-      .then((eventsData) => {
-        const filteredEvents = filterEventsData(eventsData);
-        setSearchResults(filteredEvents);
-        console.log(searchresults);
-        setResultsToShow(3);
-        setHasSearched(true);
-      })
-      .catch((err) => {
-        console.error("Error fetching events", err);
-      })
-      .finally(() => {
-        // Set a timeout to show the preloader for 2 seconds before displaying results
-        setTimeout(() => {
-          setIsLoading(false); // Hide the loader
-          setShowPreloader(false); // Stop showing the preloader
-        }, 1000);
-        closeModal();
-      });
-  };
-
   const handleLoadMore = () => {
-    setResultsToShow((prev) => prev + 3); // Increment results to show by 3
-  };
-
-  const handleRegister = (email, password, username, avatar) => {
-    if (!email || !password || !username || !avatar) {
-      console.error("All fields are required!");
-      return;
-    }
-    register(email, password)
-      .then((res) => {
-        console.log("User registered", res.user);
-        setIsLoggedIn(true);
-        setCurrentUser({ ...res.user, username, avatar });
-        closeModal();
-      })
-      .catch((err) => {
-        console.error("Registration failed", err.message);
-      });
-  };
-
-  const handleLogin = (email, password) => {
-    if (!email || !password) {
-      console.error("Missing email or password");
-      return;
-    }
-    authorize(email, password)
-      .then((res) => {
-        console.log("Login succesful, token:", res.token);
-        setIsLoggedIn(true);
-        setCurrentUser({ email });
-        closeModal();
-      })
-      .catch((err) => {
-        console.error("Login failed:", err.message);
-      });
+    setResultsToShow((prev) => prev + 3);
   };
 
   const handleCardBookmark = (event) => {
@@ -136,6 +99,89 @@ function App() {
     });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+    clearCurrentUser();
+    console.log("User logged out successfully");
+  };
+
+  /* ---------------------------------- API interactions ------------------------------- */
+
+  const fetchAndSetSearchResults = (searchParams) => {
+    setIsLoading(true);
+    setShowPreloader(true);
+    setSearchResults([]);
+    getEvents(APIKey, searchParams)
+      .then((eventsData) => {
+        const filteredEvents = filterEventsData(eventsData);
+        setSearchResults(filteredEvents);
+        console.log(searchresults);
+        setResultsToShow(3);
+        setHasSearched(true);
+      })
+      .catch((err) => {
+        console.error("Error fetching events", err);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+          setShowPreloader(false);
+        }, 1000);
+        closeModal();
+      });
+  };
+
+  const handleRegister = (email, password, username, avatar) => {
+    if (!email || !password || !username || !avatar) {
+      console.error("All fields are required!");
+      return;
+    }
+    register(email, password)
+      .then(() => authorize(email, password))
+      .then((data) => {
+        console.log("Registration & Login response:", data);
+
+        if (data.token) {
+          localStorage.setItem("authToken", data.token); // Store token
+          setIsLoggedIn(true);
+          setCurrentUser({ username, email, avatar }); // Update user context
+          closeModal(); // Close registration modal
+        } else {
+          console.error("No token received in response:", data);
+        }
+      })
+      .catch((err) => {
+        console.error("Error during registration or login:", err);
+      });
+  };
+
+  const handleLogin = (email, password) => {
+    if (!email || !password) {
+      console.error("Missing email or password");
+      return;
+    }
+    authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("authToken", data.token);
+          return checkToken(data.token);
+        } else {
+          throw new Error("No token in login response.");
+        }
+      })
+      .then(({ data }) => {
+        const { username, email, avatar, _id } = data;
+        setCurrentUser({ username, email, avatar, _id });
+        setIsLoggedIn(true);
+        closeModal();
+        console.log("Logged in successfully");
+      })
+      .catch((err) => {
+        console.error("Login failed:", err);
+      });
+  };
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={{ currentUser, clearCurrentUser }}>
@@ -150,6 +196,7 @@ function App() {
                     handleLoginClick={handleLoginClick}
                     handleRegisterClick={handleRegisterClick}
                     isLoggedIn={isLoggedIn}
+                    handleLogout={handleLogout}
                   />
                   <Main
                     isLoading={isLoading}
@@ -172,6 +219,7 @@ function App() {
                   handleLoginClick={handleLoginClick}
                   handleRegisterClick={handleRegisterClick}
                   isLoggedIn={isLoggedIn}
+                  handleLogout={handleLogout}
                 >
                   <About />
                 </WithNavigation>
@@ -180,11 +228,14 @@ function App() {
             <Route
               path="/profile"
               element={
-                <Profile
-                  bookmarkedEvents={bookmarkedEvents}
-                  handleCardBookmark={handleCardBookmark}
-                  isLoggedIn={isLoggedIn}
-                />
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    bookmarkedEvents={bookmarkedEvents}
+                    handleCardBookmark={handleCardBookmark}
+                    isLoggedIn={isLoggedIn}
+                    handleLogout={handleLogout}
+                  />
+                </ProtectedRoute>
               }
             />
           </Routes>

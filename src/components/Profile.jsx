@@ -5,7 +5,12 @@ import { useContext } from "react";
 
 import "../blocks/Profile.css";
 
-function Profile({ bookmarkedEvents, handleCardBookmark, isLoggedIn }) {
+function Profile({
+  bookmarkedEvents,
+  handleCardBookmark,
+  isLoggedIn,
+  handleLogout,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const savedEventsNumber = bookmarkedEvents.length;
@@ -14,7 +19,7 @@ function Profile({ bookmarkedEvents, handleCardBookmark, isLoggedIn }) {
 
   return (
     <div className="profile">
-      <Navigation isLoggedIn={isLoggedIn} />
+      <Navigation isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <h2 className="profile__title">{`${
         currentUser.username
       }, you have ${savedEventsNumber} saved ${

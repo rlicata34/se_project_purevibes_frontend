@@ -15,7 +15,7 @@ export const checkToken = (token) => {
 };
 
 // New function to simulate user registration
-export const register = (email, password) => {
+export const register = (email, password, username, avatar) => {
   return new Promise((resolve, reject) => {
     if (email && password) {
       resolve({

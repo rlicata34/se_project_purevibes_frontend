@@ -7,13 +7,23 @@ import logo from "../assets/purevibes-logo-white.png";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Navigation({ handleLoginClick, handleRegisterClick, isLoggedIn }) {
+function Navigation({
+  handleLoginClick,
+  handleRegisterClick,
+  isLoggedIn,
+  handleLogout,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    handleLogout();
+  };
 
   return (
     <nav className="nav">
@@ -45,10 +55,21 @@ function Navigation({ handleLoginClick, handleRegisterClick, isLoggedIn }) {
           </button>
         </div>
       ) : (
-        <Link to="/profile" className="nav__profile-link">
-          <p className="nav__name">{currentUser.username}</p>
-          <img src={currentUser.avatar} alt="avatar" className="nav__avatar" />
-        </Link>
+        <>
+          <Link to="/profile" className="nav__profile-link">
+            <p className="nav__name">{currentUser.username}</p>
+            <img
+              src={currentUser.avatar}
+              alt="avatar"
+              className="nav__avatar"
+            />
+          </Link>
+          <button
+            className="nav__logout-button"
+            type="button"
+            onClick={handleSubmit}
+          ></button>
+        </>
       )}
     </nav>
   );
