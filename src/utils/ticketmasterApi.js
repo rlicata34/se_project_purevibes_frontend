@@ -6,7 +6,7 @@ function checkResponse(res) {
 }
 
 export const getEvents = ({ artist, genre, city, startDate, endDate }) => {
-  const url = new URL("http://35.190.152.185:3002/api/events");
+  const url = new URL("https://35.190.152.185:3002/api/events");
 
   // Add query parameters dynamically
   if (artist) url.searchParams.append("artist", artist);
