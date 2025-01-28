@@ -10,6 +10,7 @@ function Main({
   handleLoadMore,
   searchresults,
   hasMore,
+  hasSearched,
   handleTryAgainClick,
 }) {
   return (
@@ -20,6 +21,7 @@ function Main({
         <section className="results">
           <SearchResults
             events={searchresults}
+            hasSearched={hasSearched}
             handleTryAgainClick={handleTryAgainClick}
           />
           {hasMore && (

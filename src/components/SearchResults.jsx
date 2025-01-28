@@ -2,7 +2,10 @@ import EventCard from "./EventCard";
 import notFoundIcon from "../assets/not-found-icon.svg";
 import "../blocks/SearchResults.css";
 
-function SearchResults({ events, handleTryAgainClick }) {
+function SearchResults({ events, hasSearched, handleTryAgainClick }) {
+  if (!hasSearched) {
+    return null;
+  }
   return events.length > 0 ? (
     <div className="results">
       <h2 className="results__title">Search results</h2>
