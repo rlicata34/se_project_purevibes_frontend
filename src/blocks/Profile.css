@@ -1,9 +1,9 @@
 .profile {
-  padding: 0 60px;
+  padding: 20px 60px 0;
 }
 
 .profile__title {
-  color: #fff;
+  color: #000;
   font-size: 40px;
   line-height: 1.15;
 }
