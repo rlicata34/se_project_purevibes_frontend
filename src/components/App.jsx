@@ -11,6 +11,7 @@ import SearchModal from "./SearchModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import { APIKey } from "../utils/constants";
+import { authorize, checkToken, register } from "../utils/auth";
 import { getEvents, filterEventsData } from "../utils/ticketmasterApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -84,6 +85,18 @@ function App() {
     setResultsToShow((prev) => prev + 3); // Increment results to show by 3
   };
 
+  const handleRegister = (email, password, username, avatar) => {
+    register(email, password)
+      .then((res) => {
+        console.log("User registered", res.user);
+        setCurrentUser({ ...res.user, username, avatar });
+        closeModal();
+      })
+      .catch((err) => {
+        console.error("Registration failed", err.message);
+      });
+  };
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={{ currentUser, clearCurrentUser }}>
@@ -142,6 +155,7 @@ function App() {
           activeModal={activeModal}
           isOpen={activeModal === "register-form"}
           handleLoginClick={handleLoginClick}
+          handleRegister={handleRegister}
         />
       </CurrentUserContext.Provider>
     </div>

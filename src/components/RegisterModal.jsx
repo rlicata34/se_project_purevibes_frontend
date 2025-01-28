@@ -5,7 +5,13 @@ import ModalWithForm from "./ModalWithForm";
 
 import "../blocks/RegisterModal.css";
 
-function RegisterModal({ onClose, isOpen, activeModal, handleLoginClick }) {
+function RegisterModal({
+  onClose,
+  isOpen,
+  activeModal,
+  handleLoginClick,
+  handleRegister,
+}) {
   const [isButtonActive, setIsButtonActive] = useState(false);
   const { values, handleChange, setValues } = useForm({
     email: "",
@@ -14,7 +20,17 @@ function RegisterModal({ onClose, isOpen, activeModal, handleLoginClick }) {
     avatar: "",
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const { email, password, username, avatar } = values;
+
+    if (!email || !password || !username || !avatar) {
+      alert("All fields are required!");
+      return;
+    }
+
+    handleRegister(email, password, username, avatar);
+  };
   return (
     <ModalWithForm
       name="register-modal"
