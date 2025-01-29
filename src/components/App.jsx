@@ -12,6 +12,7 @@ import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import ProtectedRoute from "./ProtectedRoute";
 import { authorize, checkToken, register } from "../utils/auth";
+import { getBookmarkedEvents, bookmarkEvent } from "../utils/api";
 import { getEvents, filterEventsData } from "../utils/ticketmasterApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -51,6 +52,16 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    getBookmarkedEvents()
+      .then((eventsData) => {
+        setBookmarkedEvents(eventsData);
+      })
+      .catch((err) => {
+        console.error("Error fetching bookmarked events:", err);
+      });
+  }, []);
+
   /* --------------------------------- Handlers/functions ----------------------------- */
 
   // const updateCurrentUser = (user) => setCurrentUser(user);
@@ -84,24 +95,24 @@ function App() {
   };
 
   const handleCardBookmark = (event) => {
-    setBookmarkedEvents((prev) => {
-      // Check if the event is already bookmarked
-      const isAlreadyBookmarked = prev.some((evt) => evt.id === event.id);
-      if (isAlreadyBookmarked) {
-        // Remove the event from bookmarks
-        return prev.filter((evt) => evt.id !== event.id);
-      } else {
-        // Add the event to bookmarks
-        console.log(event);
-        return [...prev, event];
-      }
-    });
+    bookmarkEvent(event)
+      .then((bookmarked) => {
+        setBookmarkedEvents((prev) => {
+          const isAlreadyBookmarked = prev.some((evt) => evt._id === event._id);
+          return isAlreadyBookmarked
+            ? prev.filter((evt) => evt._id !== event._id) // Remove if already bookmarked
+            : [...prev, bookmarked]; // Add if not bookmarked
+        });
+      })
+      .catch((err) => alert("Error bookmarking event: " + err.message));
   };
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     setIsLoggedIn(false);
     clearCurrentUser();
+    setSearchResults([]);
+    setHasSearched(false);
     console.log("User logged out successfully");
   };
 
@@ -111,6 +122,7 @@ function App() {
     setIsLoading(true);
     setShowPreloader(true);
     setSearchResults([]);
+    closeModal();
 
     console.log("Sending search request with params:", searchParams);
 
@@ -124,7 +136,6 @@ function App() {
         setSearchResults(filteredEvents);
         setResultsToShow(3);
         setHasSearched(true);
-        closeModal();
       })
       .catch((err) => {
         console.error("Error fetching events", err);

@@ -1,6 +1,6 @@
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "http://35.190.152.185:3002" // Production VM URL
+    ? "https://api.purevibes.mindhackers.org" // Production VM URL
     : "http://localhost:3001"; // Local development URL
 
 function checkResponse(res) {
