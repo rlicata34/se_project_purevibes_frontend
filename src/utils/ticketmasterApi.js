@@ -1,3 +1,8 @@
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "http://35.190.152.185:3002" // Production VM URL
+    : "http://localhost:3001"; // Local development URL
+
 function checkResponse(res) {
   if (res.ok) {
     return res.json();
@@ -6,14 +11,14 @@ function checkResponse(res) {
 }
 
 export const getEvents = ({ artist, genre, city, startDate, endDate }) => {
-  const url = new URL("https://35.190.152.185:3002/api/events");
+  const url = new URL(`${baseUrl}/api/events`);
 
   // Add query parameters dynamically
-  if (artist) url.searchParams.append("artist", artist);
-  if (genre) url.searchParams.append("genre", genre);
-  if (city) url.searchParams.append("city", city);
-  if (startDate) url.searchParams.append("startDate", `${startDate}T00:00:00Z`); // Format for Ticketmaster API
-  if (endDate) url.searchParams.append("endDate", `${endDate}T23:59:59Z`); // Format for Ticketmaster API
+  url.searchParams.append("artist", artist || "");
+  url.searchParams.append("genre", genre || "");
+  url.searchParams.append("city", city || "");
+  url.searchParams.append("startDate", startDate || "");
+  url.searchParams.append("endDate", endDate || "");
 
   return fetch(url.toString()).then(checkResponse);
 };

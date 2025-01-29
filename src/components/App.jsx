@@ -11,7 +11,6 @@ import SearchModal from "./SearchModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import ProtectedRoute from "./ProtectedRoute";
-import { APIKey } from "../utils/constants";
 import { authorize, checkToken, register } from "../utils/auth";
 import { getEvents, filterEventsData } from "../utils/ticketmasterApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -112,13 +111,20 @@ function App() {
     setIsLoading(true);
     setShowPreloader(true);
     setSearchResults([]);
-    getEvents(APIKey, searchParams)
+
+    console.log("Sending search request with params:", searchParams);
+
+    getEvents(searchParams)
       .then((eventsData) => {
+        console.log("Received raw events data:", eventsData);
+
         const filteredEvents = filterEventsData(eventsData);
+        console.log("Filtered events:", filteredEvents);
+
         setSearchResults(filteredEvents);
-        console.log(searchresults);
         setResultsToShow(3);
         setHasSearched(true);
+        closeModal();
       })
       .catch((err) => {
         console.error("Error fetching events", err);
@@ -128,7 +134,6 @@ function App() {
           setIsLoading(false);
           setShowPreloader(false);
         }, 1000);
-        closeModal();
       });
   };
 
