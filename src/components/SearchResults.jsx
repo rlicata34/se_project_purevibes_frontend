@@ -19,11 +19,10 @@ function SearchResults({
         {events.map((event) => {
           return (
             <EventCard
-              key={event.url}
+              key={event._id}
               event={event}
               handleCardBookmark={handleCardBookmark}
               bookmarkedEvents={bookmarkedEvents}
-              isBookmarked={bookmarkedEvents.some((evt) => evt.id === event.id)}
             />
           );
         })}

@@ -6,7 +6,6 @@
     rgba(135, 206, 250, 0.8) 100%
   );
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 .page__content {

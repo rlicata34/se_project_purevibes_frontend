@@ -12,7 +12,11 @@ import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import ProtectedRoute from "./ProtectedRoute";
 import { authorize, checkToken, register } from "../utils/auth";
-import { getBookmarkedEvents, bookmarkEvent } from "../utils/api";
+import {
+  getBookmarkedEvents,
+  bookmarkEvent,
+  removeBookmarkEvent,
+} from "../utils/api";
 import { getEvents, filterEventsData } from "../utils/ticketmasterApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -104,8 +108,28 @@ function App() {
             : [...prev, bookmarked]; // Add if not bookmarked
         });
       })
-      .catch((err) => alert("Error bookmarking event: " + err.message));
+      .catch((err) => {
+        console.error("Error bookmarking event", err);
+      });
   };
+
+  // const handleCardBookmark = (event, isBookmarked) => {
+  //   !isBookmarked
+  //     ? bookmarkEvent(event)
+  //         .then((updatedEvent) => {
+  //           setIsBookmarked(true);
+  //           console.log(isBookmarked);
+  //           setBookmarkedEvents((prev) => [...prev, updatedEvent]);
+  //         })
+  //         .catch((err) => console.error(err.message))
+  //     : removeBookmarkEvent(event._id).then(() => {
+  //         setIsBookmarked(false);
+  //         console.log(isBookmarked);
+  //         setBookmarkedEvents((prev) => {
+  //           prev.filter((evt) => evt.id !== event._id);
+  //         });
+  //       });
+  // };
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -122,6 +146,7 @@ function App() {
     setIsLoading(true);
     setShowPreloader(true);
     setSearchResults([]);
+    setHasSearched(true);
     closeModal();
 
     console.log("Sending search request with params:", searchParams);
@@ -135,7 +160,6 @@ function App() {
 
         setSearchResults(filteredEvents);
         setResultsToShow(3);
-        setHasSearched(true);
       })
       .catch((err) => {
         console.error("Error fetching events", err);

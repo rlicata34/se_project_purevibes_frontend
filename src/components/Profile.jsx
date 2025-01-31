@@ -30,10 +30,10 @@ function Profile({
           {bookmarkedEvents.map((event) => {
             return (
               <EventCard
-                key={event.id}
+                key={event._id}
                 event={event}
                 handleCardBookmark={handleCardBookmark}
-                isBookmarked={true}
+                bookmarkedEvents={bookmarkedEvents}
               />
             );
           })}

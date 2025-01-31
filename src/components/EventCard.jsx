@@ -1,6 +1,8 @@
 import "../blocks/EventCard.css";
 
-function EventCard({ event, handleCardBookmark, isBookmarked }) {
+function EventCard({ event, handleCardBookmark, bookmarkedEvents }) {
+  const isBookmarked = bookmarkedEvents.some((evt) => evt._id === event._id);
+
   const toggleBookmark = () => {
     handleCardBookmark(event); // Call the function passed from App
   };
