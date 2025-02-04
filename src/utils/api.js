@@ -6,21 +6,12 @@ export function getBookmarkedEvents() {
 
 export function bookmarkEvent(event) {
   return new Promise((resolve, reject) => {
-    const { _id, city, endDateTime, startDateTime, genre, name, image, url } =
-      event;
-    resolve({
-      _id,
-      city,
-      endDateTime,
-      startDateTime,
-      genre,
-      name,
-      image,
-      url,
-    });
+    resolve(event);
   });
 }
 
-export function removeBookmarkEvent(eventId) {
-  return new Promise((resolve, reject) => {});
+export function removeBookmarkEvent(event) {
+  return new Promise((resolve, reject) => {
+    resolve(event);
+  });
 }

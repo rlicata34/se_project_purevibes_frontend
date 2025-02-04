@@ -30,7 +30,7 @@ function Profile({
           {bookmarkedEvents.map((event) => {
             return (
               <EventCard
-                key={event._id}
+                key={event.url}
                 event={event}
                 handleCardBookmark={handleCardBookmark}
                 bookmarkedEvents={bookmarkedEvents}

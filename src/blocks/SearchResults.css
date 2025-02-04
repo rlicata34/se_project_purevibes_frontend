@@ -1,5 +1,5 @@
 .results {
-  padding: 80px 0 100px;
+  padding: 80px 60px 100px;
   display: flex;
   flex-direction: column;
 }
@@ -30,6 +30,7 @@
 .results-not-found__image {
   width: 83px;
   height: 83px;
+  border-radius: 5px;
 }
 
 .results-not-found__title {

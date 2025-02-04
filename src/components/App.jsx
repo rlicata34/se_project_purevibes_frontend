@@ -110,37 +110,28 @@ function App() {
   /* ---------------------------------- API interactions ------------------------------- */
 
   const handleCardBookmark = (event) => {
-    bookmarkEvent(event)
-      .then((bookmarked) => {
-        setBookmarkedEvents((prev) => {
-          const isAlreadyBookmarked = prev.some((evt) => evt._id === event._id);
-          return isAlreadyBookmarked
-            ? prev.filter((evt) => evt._id !== event._id) // Remove if already bookmarked
-            : [...prev, bookmarked]; // Add if not bookmarked
-        });
-      })
-      .catch((err) => {
-        console.error("Error bookmarking event", err);
-      });
-  };
+    const isBookmarked = bookmarkedEvents.some((evt) => evt.url === event.url);
 
-  // const handleCardBookmark = (event, isBookmarked) => {
-  //   !isBookmarked
-  //     ? bookmarkEvent(event)
-  //         .then((updatedEvent) => {
-  //           setIsBookmarked(true);
-  //           console.log(isBookmarked);
-  //           setBookmarkedEvents((prev) => [...prev, updatedEvent]);
-  //         })
-  //         .catch((err) => console.error(err.message))
-  //     : removeBookmarkEvent(event._id).then(() => {
-  //         setIsBookmarked(false);
-  //         console.log(isBookmarked);
-  //         setBookmarkedEvents((prev) => {
-  //           prev.filter((evt) => evt.id !== event._id);
-  //         });
-  //       });
-  // };
+    if (isBookmarked) {
+      removeBookmarkEvent(event)
+        .then((event) => {
+          setBookmarkedEvents((prev) =>
+            prev.filter((evt) => evt.url !== event.url)
+          );
+        })
+        .catch((err) => {
+          console.error("Error removing event", err);
+        });
+    } else {
+      bookmarkEvent(event)
+        .then((updatedEvent) => {
+          setBookmarkedEvents((prev) => [...prev, updatedEvent]);
+        })
+        .catch((err) => {
+          console.error("Error bookmarking event", err);
+        });
+    }
+  };
 
   const fetchAndSetSearchResults = (searchParams) => {
     setIsLoading(true);
