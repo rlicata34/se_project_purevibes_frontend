@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 import "../blocks/Navigation.css";
 
-import logo from "../assets/purevibes-logo-white.png";
+import logo from "../assets/purevibes-logo-2.svg";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 

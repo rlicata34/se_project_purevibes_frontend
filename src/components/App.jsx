@@ -98,6 +98,17 @@ function App() {
     setResultsToShow((prev) => prev + 3);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+    clearCurrentUser();
+    setSearchResults([]);
+    setHasSearched(false);
+    console.log("User logged out successfully");
+  };
+
+  /* ---------------------------------- API interactions ------------------------------- */
+
   const handleCardBookmark = (event) => {
     bookmarkEvent(event)
       .then((bookmarked) => {
@@ -130,17 +141,6 @@ function App() {
   //         });
   //       });
   // };
-
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    setIsLoggedIn(false);
-    clearCurrentUser();
-    setSearchResults([]);
-    setHasSearched(false);
-    console.log("User logged out successfully");
-  };
-
-  /* ---------------------------------- API interactions ------------------------------- */
 
   const fetchAndSetSearchResults = (searchParams) => {
     setIsLoading(true);
@@ -183,10 +183,10 @@ function App() {
         console.log("Registration & Login response:", data);
 
         if (data.token) {
-          localStorage.setItem("authToken", data.token); // Store token
+          localStorage.setItem("authToken", data.token);
           setIsLoggedIn(true);
-          setCurrentUser({ username, email, avatar }); // Update user context
-          closeModal(); // Close registration modal
+          setCurrentUser({ username, email, avatar });
+          closeModal();
         } else {
           console.error("No token received in response:", data);
         }

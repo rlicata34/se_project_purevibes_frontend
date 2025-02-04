@@ -1,5 +1,5 @@
 import EventCard from "./EventCard";
-import notFoundIcon from "../assets/not-found-icon.svg";
+import notFoundIcon from "../assets/no-results-icon.svg";
 import "../blocks/SearchResults.css";
 
 function SearchResults({

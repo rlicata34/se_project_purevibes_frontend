@@ -10,13 +10,13 @@ function Header({
 }) {
   return (
     <header className="header">
-      <div className="header__content">
-        <Navigation
-          handleLoginClick={handleLoginClick}
-          handleRegisterClick={handleRegisterClick}
-          isLoggedIn={isLoggedIn}
-          handleLogout={handleLogout}
-        />
+      <Navigation
+        handleLoginClick={handleLoginClick}
+        handleRegisterClick={handleRegisterClick}
+        isLoggedIn={isLoggedIn}
+        handleLogout={handleLogout}
+      />
+      <div className="header__container">
         <h1 className="header__title">Welcome to PureVibes</h1>
         <p className="header__text">
           Lifetime memories are just a few clicks away
