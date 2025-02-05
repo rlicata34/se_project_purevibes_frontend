@@ -14,19 +14,21 @@ function Main({
   handleTryAgainClick,
   handleCardBookmark,
   bookmarkedEvents,
+  searchError,
 }) {
   return (
     <main className="content">
       {isLoading && showPreloader ? (
         <Preloader isLoading={isLoading} />
       ) : (
-        <section className="results">
+        <section className="search-results">
           <SearchResults
             events={searchresults}
             hasSearched={hasSearched}
             handleTryAgainClick={handleTryAgainClick}
             handleCardBookmark={handleCardBookmark}
             bookmarkedEvents={bookmarkedEvents}
+            searchError={searchError}
           />
           {hasMore && (
             <button

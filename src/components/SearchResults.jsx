@@ -1,5 +1,6 @@
 import EventCard from "./EventCard";
 import notFoundIcon from "../assets/no-results-icon.svg";
+import serverErrorIcon from "../assets/server-error-icon.svg";
 import "../blocks/SearchResults.css";
 
 function SearchResults({
@@ -8,9 +9,30 @@ function SearchResults({
   handleTryAgainClick,
   handleCardBookmark,
   bookmarkedEvents,
+  searchError,
 }) {
   if (!hasSearched) {
     return null;
+  }
+
+  if (searchError) {
+    return (
+      <div className="results__error">
+        <img
+          src={serverErrorIcon}
+          alt="Server error icon"
+          className="results__error-icon"
+        />
+        <h2 className="results__error-title">{searchError}</h2>
+        <button
+          className="results__error-button"
+          type="button"
+          onClick={handleTryAgainClick}
+        >
+          Try again
+        </button>
+      </div>
+    );
   }
   return events.length > 0 ? (
     <div className="results">

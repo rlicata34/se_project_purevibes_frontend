@@ -5,7 +5,7 @@ export const savedEvents = [
     endDateTime: "N/A",
     startDateTime: "2025-02-16 7:00PM",
     genre: "Undefined",
-    name: "Rock Fest 2025",
+    name: "Excision Presents Thunderdome",
     image:
       "https://s1.ticketm.net/dam/a/bbe/f58b2903-eff0-4066-9f5a-2e9a41951bbe_TABLET_LANDSCAPE_3_2.jpg",
     venue: "Tacoma Dome",

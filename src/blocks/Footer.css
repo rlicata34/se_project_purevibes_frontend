@@ -22,7 +22,7 @@
 
 .footer__list-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 40px;
 }
 
@@ -32,4 +32,11 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.33;
+}
+
+.footer__link-image {
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border-radius: 5px;
 }

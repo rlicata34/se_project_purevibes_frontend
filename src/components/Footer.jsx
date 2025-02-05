@@ -1,5 +1,5 @@
 import github from "../assets/github.svg";
-import fb from "../assets/fb.svg";
+import facebookIcon from "../assets/facebook-icon.svg";
 
 import "../blocks/Footer.css";
 
@@ -32,12 +32,16 @@ function Footer() {
             />
           </a>
           <a
-            href="https://www.facebook.com/"
+            href="https://www.facebook.com/ryan.licata.3"
             className="footer__link"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src={fb} alt="Facebbok logo" className="footer__link-image" />
+            <img
+              src={facebookIcon}
+              alt="Facebbok logo"
+              className="footer__link-image"
+            />
           </a>
         </li>
       </ul>

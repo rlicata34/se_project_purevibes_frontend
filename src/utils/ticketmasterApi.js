@@ -10,13 +10,13 @@ function checkResponse(res) {
   return Promise.reject(`Error: ${res.status}, ${error.message}`);
 }
 
-export const getEvents = ({ artist, genre, city, startDate, endDate }) => {
+export const getEvents = ({ artist, genre, statecode, startDate, endDate }) => {
   const url = new URL(`${baseUrl}/api/events`);
 
   // Add query parameters dynamically
   url.searchParams.append("artist", artist || "");
   url.searchParams.append("genre", genre || "");
-  url.searchParams.append("city", city || "");
+  url.searchParams.append("stateCode", stateCode || "");
   url.searchParams.append("startDate", startDate || "");
   url.searchParams.append("endDate", endDate || "");
 
@@ -35,7 +35,7 @@ export const filterEventsData = (data) => {
     name: event.name,
     startDateTime: event.dates?.start?.dateTime || "N/A",
     endDateTime: event.dates?.end?.dateTime || "N/A",
-    city: event._embedded?.venues[0]?.city?.name || "N/A",
+    state: event._embedded?.venues[0]?.state?.statusCode || "N/A",
     venue: event._embedded?.venues[0]?.name || "N/A",
     url: event.url,
     genre: event.classifications?.[0]?.genre?.name || "N/A",

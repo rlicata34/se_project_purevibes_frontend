@@ -1,4 +1,6 @@
-.content {
+.search-results {
+  display: flex;
+  flex-direction: column;
 }
 
 .results__button {

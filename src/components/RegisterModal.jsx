@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
-import { useForm } from "../hooks/useForm";
 import ModalWithForm from "./ModalWithForm";
 
 import "../blocks/RegisterModal.css";
@@ -12,19 +12,37 @@ function RegisterModal({
   handleLoginClick,
   handleRegister,
 }) {
-  const [isButtonActive, setIsButtonActive] = useState(false);
-  const { values, handleChange, setValues } = useForm({
-    email: "",
-    password: "",
-    username: "",
-    avatar: "",
-  });
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    setValues,
+    setErrors,
+    resetForm,
+    setIsValid,
+  } = useFormAndValidation();
+
+  useEffect(() => {
+    if (isOpen) {
+      setValues({ email: "", password: "" });
+      setErrors({ message: "" });
+      setIsValid(false);
+    }
+  }, [isOpen]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const { email, password, username, avatar } = values;
 
-    handleRegister(email, password, username, avatar);
+    if (isValid) {
+      handleRegister(
+        values.email,
+        values.password,
+        values.username,
+        values.avatar
+      );
+      resetForm();
+    }
   };
   return (
     <ModalWithForm
@@ -34,8 +52,8 @@ function RegisterModal({
       activeModal={activeModal}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonClass={`modal__submit-button-register ${
-        isButtonActive ? "modal__submit-button_active" : ""
+      buttonClass={`modal__submit-button ${
+        isValid ? "modal__submit-button_active" : ""
       }`}
       buttonText="Sign Up"
     >
@@ -45,10 +63,12 @@ function RegisterModal({
           type="email"
           className="modal__input"
           name="email"
-          value={values.email}
+          value={values.email || ""}
           placeholder="Email"
           onChange={handleChange}
+          required
         />
+        <span className="modal__error">{errors.email}</span>
       </label>
       <label className="modal__label">
         Password*{" "}
@@ -56,10 +76,12 @@ function RegisterModal({
           type="password"
           className="modal__input"
           name="password"
-          value={values.city}
+          value={values.password || ""}
           placeholder="Password"
           onChange={handleChange}
+          required
         />
+        <span className="modal__error">{errors.password}</span>
       </label>
       <label className="modal__label">
         Username*{" "}
@@ -67,10 +89,12 @@ function RegisterModal({
           type="text"
           className="modal__input"
           name="username"
-          value={values.username}
+          value={values.username || ""}
           placeholder="Username"
           onChange={handleChange}
+          required
         />
+        <span className="modal__error">{errors.username}</span>
       </label>
       <label className="modal__label">
         Avatar URL*{" "}
@@ -78,10 +102,12 @@ function RegisterModal({
           type="url"
           className="modal__input"
           name="avatar"
-          value={values.avatar}
+          value={values.avatar || ""}
           placeholder="Avatar URL"
           onChange={handleChange}
+          required
         />
+        <span className="modal__error">{errors.avatar}</span>
       </label>
       <button
         className="register-modal__button"

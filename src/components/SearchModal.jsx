@@ -1,7 +1,6 @@
-import { useState } from "react";
-
+import { useEffect } from "react";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 import ModalWithForm from "./ModalWithForm";
-import { useForm } from "../hooks/useForm";
 
 import "../blocks/SearchModal.css";
 
@@ -11,19 +10,37 @@ function SearchModal({
   activeModal,
   fetchAndSetSearchResults,
 }) {
-  const [isButtonActive, setIsButtonActive] = useState(false);
+  const {
+    values,
+    handleChange,
+    isValid,
+    setValues,
+    setErrors,
+    resetForm,
+    setIsValid,
+  } = useFormAndValidation();
 
-  const { values, handleChange, setValues } = useForm({
-    genre: "",
-    artist: "",
-    city: "",
-    startDate: "",
-    endDate: "",
-  });
+  useEffect(() => {
+    if (isOpen) {
+      setValues({
+        genre: "",
+        artist: "",
+        city: "",
+        startDate: "",
+        endDate: "",
+      });
+      setErrors({ message: "" });
+      setIsValid(false);
+    }
+  }, [isOpen]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    fetchAndSetSearchResults(values);
+
+    if (isValid) {
+      fetchAndSetSearchResults(values);
+      resetForm();
+    }
   };
 
   return (
@@ -34,8 +51,8 @@ function SearchModal({
       activeModal={activeModal}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonClass={`modal__submit-button-discover ${
-        isButtonActive ? "modal__submit-button_active" : ""
+      buttonClass={`modal__submit-button ${
+        isValid ? "modal__submit-button_active" : ""
       }`}
       buttonText="Search"
     >
@@ -45,7 +62,7 @@ function SearchModal({
           type="text"
           className="modal__input"
           name="genre"
-          value={values.genre}
+          value={values.genre || ""}
           placeholder="Genre"
           onChange={handleChange}
         />
@@ -56,7 +73,7 @@ function SearchModal({
           type="text"
           className="modal__input"
           name="artist"
-          value={values.artist}
+          value={values.artist || ""}
           placeholder="Artist"
           onChange={handleChange}
         />
@@ -67,7 +84,7 @@ function SearchModal({
           type="text"
           className="modal__input"
           name="city"
-          value={values.city}
+          value={values.city || ""}
           placeholder="City"
           onChange={handleChange}
         />
@@ -78,7 +95,7 @@ function SearchModal({
           type="date"
           className="modal__input"
           name="startDate"
-          value={values.startDate}
+          value={values.startDate || ""}
           onChange={handleChange}
         />
       </label>
@@ -88,7 +105,7 @@ function SearchModal({
           type="date"
           className="modal__input"
           name="endDate"
-          value={values.endDate}
+          value={values.endDate || ""}
           onChange={handleChange}
         />
       </label>

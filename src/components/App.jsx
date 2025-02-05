@@ -31,6 +31,7 @@ function App() {
   const [searchresults, setSearchResults] = useState([]);
   const [resultsToShow, setResultsToShow] = useState(3);
   const [hasSearched, setHasSearched] = useState(false);
+  const [searchError, setSearchError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
   const [currentUser, setCurrentUser] = useState({
@@ -137,6 +138,7 @@ function App() {
     setIsLoading(true);
     setShowPreloader(true);
     setSearchResults([]);
+    setSearchError(null);
     setHasSearched(true);
     closeModal();
 
@@ -154,6 +156,9 @@ function App() {
       })
       .catch((err) => {
         console.error("Error fetching events", err);
+        setSearchError(
+          "Sorry, something went wrong during the request. There may be a connection issue or the server may be down. Please try again later."
+        );
       })
       .finally(() => {
         setTimeout(() => {
@@ -239,6 +244,7 @@ function App() {
                     handleTryAgainClick={handleTryAgainClick}
                     handleCardBookmark={handleCardBookmark}
                     bookmarkedEvents={bookmarkedEvents}
+                    searchError={searchError}
                   />
                 </>
               }

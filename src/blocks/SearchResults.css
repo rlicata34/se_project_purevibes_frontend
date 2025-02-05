@@ -14,17 +14,56 @@
 .cards__list {
   display: flex;
   flex-direction: row;
+  align-items: stretch;
   flex-wrap: wrap;
   list-style-type: none;
   gap: 16px;
   padding: 0;
+  margin: 0;
+}
+
+.results__error {
+  padding: 80px 60px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.results__error-icon {
+  width: 83px;
+  height: 83px;
+  border-radius: 5px;
+}
+
+.results__error-title {
+  color: #fff;
+  max-width: 800px;
+  text-align: center;
+}
+
+.results__error-button {
+  width: 150px;
+  margin-top: 90px;
+  background-color: #00a8ff;
+  color: white;
+  font-size: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.results__error-button:hover {
+  opacity: 0.95;
+  transform: scale(1.05); /* Slightly enlarges the button */
 }
 
 .results-not-found {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding: 80px 60px 100px;
 }
 
 .results-not-found__image {
@@ -35,14 +74,15 @@
 
 .results-not-found__title {
   color: #fff;
-  font-weight: 500;
-  font-size: 50px;
+  font-weight: 400;
+  font-size: 40px;
+  text-align: center;
 }
 
 .results-not-found__button {
-  margin: 90px auto;
+  margin-top: 90px;
   width: 150px;
-  background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient button */
+  background-color: #00a8ff;
   color: white;
   font-size: 20px;
   padding: 10px 20px;

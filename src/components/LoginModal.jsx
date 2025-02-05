@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
-import { useForm } from "../hooks/useForm";
 import ModalWithForm from "./ModalWithForm";
-
 import "../blocks/LoginModal.css";
 
 function LoginModal({
@@ -12,17 +11,31 @@ function LoginModal({
   handleRegisterClick,
   handleLogin,
 }) {
-  const [isButtonActive, setIsButtonActive] = useState(false);
-  const { values, handleChange, setValues } = useForm({
-    email: "",
-    password: "",
-  });
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    setValues,
+    setErrors,
+    resetForm,
+    setIsValid,
+  } = useFormAndValidation();
+
+  useEffect(() => {
+    if (isOpen) {
+      setValues({ email: "", password: "" });
+      setErrors({ message: "" });
+      setIsValid(false);
+    }
+  }, [isOpen]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const { email, password } = values;
-
-    handleLogin(email, password);
+    if (isValid) {
+      handleLogin(values.email, values.password);
+      resetForm();
+    }
   };
   return (
     <ModalWithForm
@@ -32,8 +45,8 @@ function LoginModal({
       activeModal={activeModal}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonClass={`modal__submit-button-login ${
-        isButtonActive ? "modal__submit-button_active" : ""
+      buttonClass={`modal__submit-button ${
+        isValid ? "modal__submit-button_active" : ""
       }`}
       buttonText="Log In"
     >
@@ -43,10 +56,12 @@ function LoginModal({
           type="email"
           className="modal__input"
           name="email"
-          value={values.email}
+          value={values.email || ""}
           placeholder="Email"
           onChange={handleChange}
+          required
         />
+        <span className="modal__error">{errors.email}</span>
       </label>
       <label className="modal__label">
         Password*{" "}
@@ -54,10 +69,12 @@ function LoginModal({
           type="password"
           className="modal__input"
           name="password"
-          value={values.city}
+          value={values.password || ""}
           placeholder="Password"
           onChange={handleChange}
+          required
         />
+        <span className="modal__error">{errors.password}</span>
       </label>
       <button
         className="login-modal__button"

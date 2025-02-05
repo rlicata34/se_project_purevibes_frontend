@@ -1,5 +1,8 @@
 .profile {
-  padding: 20px 60px 0;
+}
+
+.profile__content {
+  padding: 0 60px;
 }
 
 .profile__title {
