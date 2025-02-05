@@ -7,7 +7,9 @@ export function useFormAndValidation() {
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
-    setValues({ ...values, [name]: value });
+    const updatedValue = name === "stateCode" ? value.toUpperCase() : value;
+
+    setValues({ ...values, [name]: updatedValue });
     setErrors({ ...errors, [name]: evt.target.validationMessage });
     setIsValid(evt.target.closest("form").checkValidity());
   };

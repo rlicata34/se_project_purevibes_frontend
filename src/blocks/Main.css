@@ -6,9 +6,12 @@
 .results__button {
   width: 288px;
   height: 64px;
+  font-size: 20px;
   border-radius: 80px;
-  background-color: #fff;
   border: none;
-  margin: 64px auto 0;
+  margin: 65px auto 85px;
   cursor: pointer;
+  background-color: #00a8ff;
+  color: #fff;
+  padding: 0;
 }

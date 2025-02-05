@@ -25,7 +25,7 @@ function SearchModal({
       setValues({
         genre: "",
         artist: "",
-        city: "",
+        stateCode: "",
         startDate: "",
         endDate: "",
       });
@@ -79,13 +79,14 @@ function SearchModal({
         />
       </label>
       <label className="modal__label">
-        City
+        State
         <input
           type="text"
           className="modal__input"
-          name="city"
-          value={values.city || ""}
-          placeholder="City"
+          name="stateCode"
+          value={values.stateCode || ""}
+          placeholder="e.g. NY for New York"
+          maxLength={2}
           onChange={handleChange}
         />
       </label>
