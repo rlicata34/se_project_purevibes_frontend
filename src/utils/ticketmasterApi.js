@@ -1,7 +1,7 @@
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.purevibes.mindhackers.org" // Production VM URL
-    : "http://localhost:3001"; // Local development URL
+    ? "https://api.purevibes.mindhackers.org"
+    : "http://localhost:3001";
 
 function checkResponse(res) {
   if (res.ok) {
@@ -13,7 +13,6 @@ function checkResponse(res) {
 export const getEvents = ({ artist, genre, stateCode, startDate, endDate }) => {
   const url = new URL(`${baseUrl}/api/events`);
 
-  // Add query parameters dynamically
   url.searchParams.append("artist", artist || "");
   url.searchParams.append("genre", genre || "");
   url.searchParams.append("stateCode", stateCode || "");
@@ -24,12 +23,10 @@ export const getEvents = ({ artist, genre, stateCode, startDate, endDate }) => {
 };
 
 export const filterEventsData = (data) => {
-  // Ensure the data has events
   if (!data || !data._embedded || !data._embedded.events) {
     return [];
   }
 
-  // Map the events to extract the desired fields
   return data._embedded.events.map((event) => ({
     _id: event.id,
     name: event.name,
@@ -39,6 +36,6 @@ export const filterEventsData = (data) => {
     venue: event._embedded?.venues[0]?.name || "N/A",
     url: event.url,
     genre: event.classifications?.[0]?.genre?.name || "N/A",
-    image: event.images?.[0]?.url || "https://via.placeholder.com/150", // Default image if none provided
+    image: event.images?.[0]?.url || "https://via.placeholder.com/150",
   }));
 };

@@ -4,6 +4,7 @@ import { useContext } from "react";
 import "../blocks/Navigation.css";
 
 import logo from "../assets/purevibes-logo-2.svg";
+import defaultAvatar from "../assets/default-avatar.jpg";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -61,7 +62,11 @@ function Navigation({
             <Link to="/profile" className="nav__profile-link">
               <p className="nav__name">{currentUser.username}</p>
               <img
-                src={currentUser.avatar}
+                src={
+                  !currentUser.avatar === undefined
+                    ? currentUser.avatar
+                    : defaultAvatar
+                }
                 alt="avatar"
                 className="nav__avatar"
               />
