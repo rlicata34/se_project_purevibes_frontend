@@ -60,7 +60,7 @@
   }
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 675px) {
   .header__title {
     font-size: 35px;
     text-align: center;

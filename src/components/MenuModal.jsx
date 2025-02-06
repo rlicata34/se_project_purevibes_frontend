@@ -36,28 +36,32 @@ function MenuModal({
         name="menu"
         activeModal={activeModal}
       >
-        <Link to="/">
+        <Link to="/" onClick={onClose}>
           <img src={logo} alt="logo" className="menu__logo" />
         </Link>
         <span className="menu__border"></span>
         {isLoggedIn ? (
           <div className="menu__container">
-            <Link to="/" className="menu__link">
+            <Link to="/" className="menu__link" onClick={onClose}>
               Home
             </Link>
-            <Link to="/about" className="menu__link">
+            <Link to="/about" className="menu__link" onClick={onClose}>
               About
             </Link>
-            <Link to="/profile" className="menu__profile-link">
+            <Link
+              to="/profile"
+              className="menu__profile-link"
+              onClick={onClose}
+            >
               <p className="menu__name">{currentUser.username}</p>
             </Link>
           </div>
         ) : (
           <div className="menu__container">
-            <Link to="/" className="menu__link">
+            <Link to="/" className="menu__link" onClick={onClose}>
               Home
             </Link>
-            <Link to="/about" className="menu__link">
+            <Link to="/about" className="menu__link" onClick={onClose}>
               About
             </Link>
           </div>

@@ -44,10 +44,10 @@
   }
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 680px) {
   .footer {
     flex-direction: column-reverse;
-    padding: 0 60px;
+    padding: 0 60px 15px;
   }
 
   .footer__copyright {
@@ -70,7 +70,7 @@
 
 @media screen and (max-width: 450px) {
   .footer {
-    padding: 0 15px;
+    padding: 0 15px 15px;
   }
 
   .footer__copyright {

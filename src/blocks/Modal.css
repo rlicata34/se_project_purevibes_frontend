@@ -61,7 +61,7 @@
 .modal-menu__close {
   position: absolute;
   top: 20px;
-  right: 16px;
+  right: 35px;
   background: transparent url("../assets/close-icon.svg") center no-repeat;
   width: 25px;
   height: 25px;
@@ -84,4 +84,10 @@
   margin: 0;
   cursor: pointer;
   background-size: contain;
+}
+
+@media screen and (max-width: 450px) {
+  .modal-menu__close {
+    right: 10px;
+  }
 }
