@@ -23,9 +23,6 @@
   gap: 40px;
 }
 
-.footer__list-item {
-}
-
 .footer__link {
   color: #fff;
   text-decoration: none;
@@ -39,6 +36,12 @@
   height: 24px;
   background-color: #fff;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 935px) {
+  .footer {
+    padding: 0 40px;
+  }
 }
 
 @media screen and (max-width: 620px) {
@@ -68,5 +71,9 @@
 @media screen and (max-width: 450px) {
   .footer {
     padding: 0 15px;
+  }
+
+  .footer__copyright {
+    font-size: 12px;
   }
 }

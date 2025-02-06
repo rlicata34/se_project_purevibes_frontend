@@ -14,10 +14,11 @@
 .cards__list {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+
+  align-items: center;
+  gap: 16px;
   flex-wrap: wrap;
   list-style-type: none;
-  gap: 16px;
   padding: 0;
   margin: 0;
 }
@@ -95,4 +96,20 @@
 .results-not-found__button:hover {
   opacity: 0.95;
   transform: scale(1.05); /* Slightly enlarges the button */
+}
+
+@media screen and (max-width: 935px) {
+  .results {
+    padding: 60px 40px 80px;
+  }
+
+  .results__title {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .results {
+    padding: 40px 15px 0;
+  }
 }

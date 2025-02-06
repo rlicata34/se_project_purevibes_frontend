@@ -84,6 +84,12 @@
   margin-bottom: 50px;
 }
 
+@media screen and (max-width: 935px) {
+  .nav {
+    margin: 0 40px 0;
+  }
+}
+
 @media screen and (max-width: 620px) {
   .nav__date,
   .nav__link,

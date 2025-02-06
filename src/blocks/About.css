@@ -29,10 +29,11 @@
   margin: 0 0 20px;
 }
 
-@media screen and (max-width: 975px) {
+@media screen and (max-width: 935px) {
   .about__content {
     flex-direction: column;
     align-items: center;
+    padding: 0 40px;
   }
 
   .about__image {

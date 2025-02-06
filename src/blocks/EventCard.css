@@ -39,27 +39,45 @@
   min-height: 250px;
   padding: 24px 24px;
   background-color: #fff;
+  font-size: 26px;
 }
 
 .card__name {
-  font-size: 26px;
   font-weight: 400;
   margin: 0;
 }
 
 .card__date {
-  font-size: 26px;
   margin: 0;
 }
 
 .card__location {
-  font-size: 26px;
   margin: 0;
 }
 
 .card__link {
-  font-size: 26px;
   margin: 0;
   cursor: pointer;
   text-decoration: none;
+}
+
+@media screen and (max-width: 935px) {
+  .card {
+    width: 220px;
+  }
+
+  .card__image {
+    height: 150px;
+  }
+
+  .card__description {
+    font-size: 16px;
+    min-height: 200px;
+  }
+}
+
+@media screen and (max-width: 535px) {
+  .card {
+    width: 290px;
+  }
 }
