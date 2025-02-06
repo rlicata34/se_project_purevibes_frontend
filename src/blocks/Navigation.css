@@ -1,7 +1,7 @@
 .nav {
   display: flex;
   align-items: center;
-  padding: 10px 60px 0;
+  padding: 15px 60px 0;
   margin-bottom: 50px;
   font-size: 18px;
 }
@@ -70,4 +70,23 @@
   padding: 0;
   border: none;
   cursor: pointer;
+}
+
+@media screen and (max-width: 620px) {
+  .nav__date,
+  .nav__link,
+  .nav__profile-link,
+  .nav__name,
+  .nav__avatar,
+  .nav__login-button,
+  .nav__register-button,
+  .nav__logout-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .nav {
+    padding: 15px 15px 0;
+  }
 }

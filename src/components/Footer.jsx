@@ -19,6 +19,8 @@ function Footer() {
           >
             TripleTen
           </a>
+        </li>
+        <li className="footer__list-item">
           <a
             href="https://github.com/rlicata34"
             className="footer__link"
@@ -31,6 +33,8 @@ function Footer() {
               className="footer__link-image"
             />
           </a>
+        </li>
+        <li className="footer__list-item">
           <a
             href="https://www.facebook.com/ryan.licata.3"
             className="footer__link"
