@@ -45,7 +45,7 @@ function SearchModal({
 
   return (
     <ModalWithForm
-      name="search-modal"
+      name="form"
       title="Discover Events"
       isOpen={isOpen}
       activeModal={activeModal}

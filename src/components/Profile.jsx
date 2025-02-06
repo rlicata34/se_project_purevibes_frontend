@@ -10,6 +10,7 @@ function Profile({
   handleCardBookmark,
   isLoggedIn,
   handleLogout,
+  handleMenuClick,
 }) {
   const { currentUser } = useContext(CurrentUserContext);
 
@@ -19,7 +20,11 @@ function Profile({
 
   return (
     <div className="profile">
-      <Navigation isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+      <Navigation
+        isLoggedIn={isLoggedIn}
+        handleLogout={handleLogout}
+        handleMenuClick={handleMenuClick}
+      />
       <div className="profile__content">
         <h2 className="profile__title">{`${
           currentUser.username

@@ -6,6 +6,7 @@ function WithNavigation({
   handleRegisterClick,
   isLoggedIn,
   handleLogout,
+  handleMenuClick,
 }) {
   return (
     <>
@@ -14,6 +15,7 @@ function WithNavigation({
         handleRegisterClick={handleRegisterClick}
         isLoggedIn={isLoggedIn}
         handleLogout={handleLogout}
+        handleMenuClick={handleMenuClick}
       />
       {children}
     </>

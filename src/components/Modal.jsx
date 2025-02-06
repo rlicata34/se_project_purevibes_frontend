@@ -24,12 +24,12 @@ function Modal({ isOpen, name, onClose, children, activeModal }) {
   return (
     activeModal && (
       <div
-        className={`modal ${isOpen ? "modal_opened" : ""}`}
+        className={`modal-${name} ${isOpen ? "modal_opened" : ""}`}
         onClick={handleOverlay}
       >
-        <div className="modal__content">
+        <div className={`modal-${name}__content`}>
           {children}
-          <button className="modal__close" onClick={onClose} />
+          <button className={`modal-${name}__close`} onClick={onClose} />
         </div>
       </div>
     )

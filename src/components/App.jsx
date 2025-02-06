@@ -10,6 +10,7 @@ import WithNavigation from "./WithNavigation";
 import SearchModal from "./SearchModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
+import MenuModal from "./MenuModal";
 import ProtectedRoute from "./ProtectedRoute";
 import { authorize, checkToken, register } from "../utils/auth";
 import {
@@ -106,6 +107,10 @@ function App() {
     setSearchResults([]);
     setHasSearched(false);
     console.log("User logged out successfully");
+  };
+
+  const handleMenuClick = () => {
+    setActiveModal("menu-modal");
   };
 
   /* ---------------------------------- API interactions ------------------------------- */
@@ -233,6 +238,7 @@ function App() {
                     handleRegisterClick={handleRegisterClick}
                     isLoggedIn={isLoggedIn}
                     handleLogout={handleLogout}
+                    handleMenuClick={handleMenuClick}
                   />
                   <Main
                     isLoading={isLoading}
@@ -257,6 +263,7 @@ function App() {
                   handleRegisterClick={handleRegisterClick}
                   isLoggedIn={isLoggedIn}
                   handleLogout={handleLogout}
+                  handleMenuClick={handleMenuClick}
                 >
                   <About />
                 </WithNavigation>
@@ -271,6 +278,7 @@ function App() {
                     handleCardBookmark={handleCardBookmark}
                     isLoggedIn={isLoggedIn}
                     handleLogout={handleLogout}
+                    handleMenuClick={handleMenuClick}
                   />
                 </ProtectedRoute>
               }
@@ -297,6 +305,14 @@ function App() {
           isOpen={activeModal === "register-form"}
           handleLoginClick={handleLoginClick}
           handleRegister={handleRegister}
+        />
+        <MenuModal
+          onClose={closeModal}
+          isOpen={activeModal === "menu-modal"}
+          isLoggedIn={isLoggedIn}
+          activeModal={activeModal}
+          handleLoginClick={handleLoginClick}
+          handleLogout={handleLogout}
         />
       </CurrentUserContext.Provider>
     </div>

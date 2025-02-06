@@ -1,0 +1,45 @@
+.menu__logo {
+  width: 40px;
+  height: 40px;
+  margin: 16px 0 16px 16px;
+}
+
+.menu__border {
+  display: block;
+  border-bottom: 1px solid #fff;
+  opacity: 0.4;
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.menu__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 16px 40px;
+}
+
+.menu__link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+}
+
+.menu__profile-link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+}
+
+.menu__button {
+  width: 288px;
+  height: 56px;
+  border: 1px solid #fff;
+  background-color: #000;
+  color: #fff;
+  border-radius: 100px;
+  margin: 0 auto 25px;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1.33;
+}

@@ -39,7 +39,7 @@ function LoginModal({
   };
   return (
     <ModalWithForm
-      name="login-modal"
+      name="form"
       title="Sign In"
       isOpen={isOpen}
       activeModal={activeModal}

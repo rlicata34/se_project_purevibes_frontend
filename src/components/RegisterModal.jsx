@@ -46,7 +46,7 @@ function RegisterModal({
   };
   return (
     <ModalWithForm
-      name="register-modal"
+      name="form"
       title="Sign up"
       isOpen={isOpen}
       activeModal={activeModal}
