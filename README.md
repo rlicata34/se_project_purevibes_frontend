@@ -2,7 +2,7 @@
 
 PureVibes is a modern event discovery app that allows users to search for events based on artist, genre, and state using the Ticketmaster API. Users can also bookmark events, register, and manage their profiles.
 
-## Texhnologies and techniques
+## Technologies and techniques
 
 - Semantic HTML5
 - Flexbox
