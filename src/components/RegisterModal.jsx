@@ -29,7 +29,7 @@ function RegisterModal({
       setErrors({ message: "" });
       setIsValid(false);
     }
-  }, [isOpen]);
+  }, [isOpen, setValues, setErrors, setIsValid]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

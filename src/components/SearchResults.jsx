@@ -58,7 +58,7 @@ function SearchResults({
         className="results-not-found__image"
       />
       <h2 className="results-not-found__title">
-        We're Sorry. No events match your search.
+        {"We're Sorry. No events match your search."}
       </h2>
       <button
         className="results-not-found__button"
