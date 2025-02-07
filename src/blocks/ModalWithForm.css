@@ -1,0 +1,46 @@
+.modal__title {
+  margin: 0 0 24px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.16;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__label {
+  margin: 0 0 24px;
+}
+
+.modal__error {
+  color: #ff0000;
+}
+
+.modal__input {
+  display: block;
+  border-width: 0 0 1px;
+  padding: 0;
+  width: 100%;
+  margin: 8px 0 0;
+  padding-bottom: 4px;
+}
+
+.modal__submit-button {
+  max-width: 358px;
+  height: 64px;
+  border: none;
+  border-radius: 100px;
+  color: #b6bcbf;
+  background-color: #e6e8eb;
+  margin: 24px 0 28px;
+  padding: 0;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.modal__submit-button_active {
+  color: #fff;
+  background-color: #00a8ff;
+}

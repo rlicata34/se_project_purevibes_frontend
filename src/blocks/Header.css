@@ -1,0 +1,75 @@
+.header {
+  background: url("../assets/background-image-5.jpg") center no-repeat;
+  background-size: cover;
+  color: #fff;
+  height: 800px;
+}
+
+.header__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header__title {
+  margin: 180px 42px 0 0;
+  font-size: 58px;
+}
+
+.header__text {
+  margin: 30px 42px 0 0;
+  font-size: 20px;
+  max-width: max-content;
+}
+
+.header__form-button {
+  margin: 60px 42px 0 0;
+  width: 150px;
+  color: white;
+  font-size: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #00a8ff;
+  transition: transform 0.2s ease;
+}
+
+.header__form-button:hover {
+  opacity: 0.95;
+  transform: scale(1.05);
+}
+
+@media screen and (max-width: 875px) {
+  .header {
+    background: url("../assets/low-res-background.jpg") center no-repeat;
+    height: 550px;
+    background-size: cover;
+  }
+
+  .header__title {
+    margin: 90px auto 0;
+  }
+
+  .header__text {
+    margin: 30px auto 0;
+  }
+
+  .header__form-button {
+    margin: 50px auto 0;
+  }
+}
+
+@media screen and (max-width: 675px) {
+  .header__title {
+    font-size: 35px;
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .header__text {
+    font-size: 18px;
+    text-align: center;
+    padding: 0 15px;
+  }
+}
