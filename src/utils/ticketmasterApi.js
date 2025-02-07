@@ -19,6 +19,8 @@ export const getEvents = ({ artist, genre, stateCode, startDate, endDate }) => {
   url.searchParams.append("startDate", startDate || "");
   url.searchParams.append("endDate", endDate || "");
 
+  console.log("Fetching events from:", url.toString());
+
   return fetch(url.toString()).then(checkResponse);
 };
 

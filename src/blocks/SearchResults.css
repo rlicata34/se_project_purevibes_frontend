@@ -2,6 +2,7 @@
   padding: 80px 60px 100px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .results__title {
@@ -12,15 +13,12 @@
 }
 
 .cards__list {
-  display: flex;
-  flex-direction: row;
-
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  list-style-type: none;
-  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(auto, 400px));
+  justify-content: center;
+  gap: 20px;
   margin: 0;
+  padding: 0;
 }
 
 .results__error {
@@ -106,10 +104,18 @@
   .results__title {
     font-size: 30px;
   }
+
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, minmax(auto, 220px));
+  }
 }
 
 @media screen and (max-width: 450px) {
   .results {
     padding: 40px 15px 0;
+  }
+
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, minmax(auto, 290px));
   }
 }
