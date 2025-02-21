@@ -178,22 +178,23 @@ function App() {
       console.error("All fields are required!");
       return;
     }
-    register(email, password)
-      .then(() => authorize(email, password))
+
+    register(email, password, username, avatar)
       .then((data) => {
-        console.log("Registration & Login response:", data);
+        console.log("Registration response:", data);
 
         if (data.token) {
           localStorage.setItem("authToken", data.token);
           setIsLoggedIn(true);
-          setCurrentUser({ username, email, avatar });
+          setCurrentUser(data.user);
           closeModal();
+          console.log("Auth token stored successfully:", data.token);
         } else {
           console.error("No token received in response:", data);
         }
       })
       .catch((err) => {
-        console.error("Error during registration or login:", err);
+        console.error("Error during registration:", err);
       });
   };
 
@@ -202,21 +203,20 @@ function App() {
       console.error("Missing email or password");
       return;
     }
+
     authorize(email, password)
       .then((data) => {
+        console.log("Login response:", data);
+
         if (data.token) {
           localStorage.setItem("authToken", data.token);
-          return checkToken(data.token);
+          setIsLoggedIn(true);
+          setCurrentUser(data.user); //
+          closeModal();
+          console.log("Auth token stored successfully:", data.token);
         } else {
-          throw new Error("No token in login response.");
+          console.error("No token received in response:", data);
         }
-      })
-      .then(({ data }) => {
-        const { username, email, avatar, _id } = data;
-        setCurrentUser({ username, email, avatar, _id });
-        setIsLoggedIn(true);
-        closeModal();
-        console.log("Logged in successfully");
       })
       .catch((err) => {
         console.error("Login failed:", err);

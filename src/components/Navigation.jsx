@@ -62,11 +62,7 @@ function Navigation({
             <Link to="/profile" className="nav__profile-link">
               <p className="nav__name">{currentUser.username}</p>
               <img
-                src={
-                  !currentUser.avatar === undefined
-                    ? currentUser.avatar
-                    : defaultAvatar
-                }
+                src={currentUser.avatar ? currentUser.avatar : defaultAvatar}
                 alt="avatar"
                 className="nav__avatar"
               />
