@@ -31,6 +31,10 @@
   font-size: 18px;
 }
 
+.menu__name {
+  margin: 0;
+}
+
 .menu__button {
   width: 288px;
   height: 56px;
