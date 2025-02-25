@@ -1,0 +1,21 @@
+.page {
+  background: linear-gradient(
+    to right,
+    rgba(0, 160, 200, 0.7) 0%,
+    rgba(0, 140, 190, 0.75) 20%,
+    rgba(0, 120, 180, 0.7) 40%,
+    rgba(0, 100, 160, 0.65) 50%,
+    rgba(0, 120, 180, 0.7) 60%,
+    rgba(0, 140, 190, 0.75) 80%,
+    rgba(0, 160, 200, 0.7) 100%
+  );
+  min-height: 100vh;
+}
+
+.page__content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  font-family: "Roboto", sans-serif;
+}
