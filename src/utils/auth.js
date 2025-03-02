@@ -1,57 +1,50 @@
-export const authorize = (email, password) => {
-  return new Promise((resolve, reject) => {
-    if (email && password) {
-      const fakeToken = "fake-jwt-token-12345";
-      const storedUserData = JSON.parse(localStorage.getItem("userData")) || {
-        email,
-        username: "FakeUser",
-        avatar: "https://via.placeholder.com/150",
-      };
+const baseUrl = "http://localhost:3001";
 
-      resolve({
-        message: "User logged in successfully",
-        user: storedUserData,
-        token: fakeToken,
-      });
-    } else {
-      reject(new Error("Invalid email or password"));
-    }
+function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Error: ${res.status}, ${error.message}`);
+}
+
+export const authorize = (email, password) => {
+  return request(`${baseUrl}/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  }).then((data) => {
+    console.log("Login response:", data); // Debug log
+    return data;
   });
 };
 
-export const checkToken = (token) => {
-  return new Promise((resolve, reject) => {
-    if (token) {
-      const storedUserData = JSON.parse(localStorage.getItem("userData"));
+export const getUserInfo = (token) => {
+  console.log("Sending token in /users/me request:", token);
 
-      if (storedUserData) {
-        resolve({
-          data: storedUserData,
-        });
-      } else {
-        reject(new Error("No user data found"));
-      }
-    } else {
-      reject(new Error("Invalid token"));
-    }
+  return request(`${baseUrl}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
 };
 
 export const register = (email, password, username, avatar) => {
-  return new Promise((resolve, reject) => {
-    if (email && password && username && avatar) {
-      const fakeToken = "fake-jwt-token-12345";
-      const userData = { email, username, avatar, id: "new-fake-id" };
-
-      localStorage.setItem("userData", JSON.stringify(userData));
-
-      resolve({
-        message: "User registered successfully",
-        user: userData,
-        token: fakeToken,
-      });
-    } else {
-      reject(new Error("Invalid email, password, username or avatar URL"));
-    }
+  return request(`${baseUrl}/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, avatar, password, email }),
+  }).then((data) => {
+    console.log("Register response:", data); // Debug log
+    return data;
   });
 };

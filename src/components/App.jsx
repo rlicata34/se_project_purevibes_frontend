@@ -12,7 +12,7 @@ import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import MenuModal from "./MenuModal";
 import ProtectedRoute from "./ProtectedRoute";
-import { authorize, checkToken, register } from "../utils/auth";
+import { authorize, getUserInfo, register } from "../utils/auth";
 import {
   getBookmarkedEvents,
   bookmarkEvent,
@@ -20,6 +20,7 @@ import {
 } from "../utils/api";
 import { getEvents, filterEventsData } from "../utils/ticketmasterApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { setToken, getToken, removeToken } from "../utils/token";
 
 import "../blocks/App.css";
 
@@ -44,18 +45,22 @@ function App() {
   /* --------------------------------- useEffect functions ---------------------------- */
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      checkToken(token)
-        .then((res) => {
-          setIsLoggedIn(true);
-          setCurrentUser(res.data);
-        })
-        .catch((err) => {
-          console.error("Token validation failed:", err);
-          localStorage.removeItem("authToken");
-        });
+    const jwt = getToken();
+    console.log("JWT", jwt);
+
+    if (!jwt) {
+      console.warn("No token found");
+      return;
     }
+
+    getUserInfo(jwt)
+      .then(({ username, email, avatar, _id }) => {
+        setIsLoggedIn(true);
+        setCurrentUser({ username, email, avatar, _id });
+      })
+      .catch((err) => {
+        console.error("Error fetching user info", err);
+      });
   }, []);
 
   useEffect(() => {
@@ -101,7 +106,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    removeToken();
     setIsLoggedIn(false);
     clearCurrentUser();
     setSearchResults([]);
@@ -180,13 +185,14 @@ function App() {
     }
 
     register(email, password, username, avatar)
+      .then(() => authorize(email, password))
       .then((data) => {
         console.log("Registration response:", data);
 
         if (data.token) {
-          localStorage.setItem("authToken", data.token);
+          setToken(data.token);
           setIsLoggedIn(true);
-          setCurrentUser(data.user);
+          setCurrentUser({ username, email, avatar });
           closeModal();
           console.log("Auth token stored successfully:", data.token);
         } else {
@@ -209,14 +215,18 @@ function App() {
         console.log("Login response:", data);
 
         if (data.token) {
-          localStorage.setItem("authToken", data.token);
-          setIsLoggedIn(true);
-          setCurrentUser(data.user); //
-          closeModal();
+          setToken(data.token);
           console.log("Auth token stored successfully:", data.token);
+          return getUserInfo(data.token);
         } else {
-          console.error("No token received in response:", data);
+          throw new Error("No token in login response.");
         }
+      })
+      .then(({ username, email, avatar, _id }) => {
+        setCurrentUser({ username, email, avatar, _id });
+        setIsLoggedIn(true);
+        closeModal();
+        console.log("Logged in successfully");
       })
       .catch((err) => {
         console.error("Login failed:", err);
