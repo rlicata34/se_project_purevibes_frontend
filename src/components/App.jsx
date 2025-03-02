@@ -16,7 +16,9 @@ import { authorize, getUserInfo, register } from "../utils/auth";
 import {
   getBookmarkedEvents,
   bookmarkEvent,
-  removeBookmarkEvent,
+  removeBookmark,
+  addEvent,
+  removeEvent,
 } from "../utils/api";
 import { getEvents, filterEventsData } from "../utils/ticketmasterApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -64,9 +66,15 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getBookmarkedEvents()
-      .then((eventsData) => {
-        setBookmarkedEvents(eventsData);
+    const jwt = getToken();
+    if (!jwt) {
+      console.warn("No token found");
+      return;
+    }
+
+    getBookmarkedEvents(jwt)
+      .then((events) => {
+        setBookmarkedEvents(events);
       })
       .catch((err) => {
         console.error("Error fetching bookmarked events:", err);
@@ -121,25 +129,37 @@ function App() {
   /* ---------------------------------- API interactions ------------------------------- */
 
   const handleCardBookmark = (event) => {
-    const isBookmarked = bookmarkedEvents.some((evt) => evt.url === event.url);
+    console.log("Event data:", event);
+    const userToken = getToken();
+    if (!userToken) {
+      console.error("Authorization token is missing.");
+      return;
+    }
+
+    const { image, name, startDateTime, venue, url, eventId } = event;
+    const isBookmarked = bookmarkedEvents.some(
+      (evt) => evt.eventId === eventId
+    );
 
     if (isBookmarked) {
-      removeBookmarkEvent(event)
-        .then((event) => {
+      removeBookmark(eventId, userToken)
+        .then(() => removeEvent(eventId, userToken))
+        .then(() => {
           setBookmarkedEvents((prev) =>
-            prev.filter((evt) => evt.url !== event.url)
+            prev.filter((evt) => evt.eventId !== eventId)
           );
         })
         .catch((err) => {
           console.error("Error removing event", err);
         });
     } else {
-      bookmarkEvent(event)
+      addEvent(image, name, startDateTime, venue, url, eventId, userToken)
+        .then(() => bookmarkEvent(eventId, userToken))
         .then((updatedEvent) => {
           setBookmarkedEvents((prev) => [...prev, updatedEvent]);
         })
         .catch((err) => {
-          console.error("Error bookmarking event", err);
+          console.error("Error adding event or bookmarking", err);
         });
     }
   };

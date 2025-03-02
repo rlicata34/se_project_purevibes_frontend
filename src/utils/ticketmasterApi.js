@@ -30,7 +30,7 @@ export const filterEventsData = (data) => {
   }
 
   return data._embedded.events.map((event) => ({
-    _id: event.id,
+    eventId: event.id,
     name: event.name,
     startDateTime: event.dates?.start?.dateTime || "N/A",
     endDateTime: event.dates?.end?.dateTime || "N/A",

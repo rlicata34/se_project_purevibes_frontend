@@ -48,3 +48,5 @@ export const register = (email, password, username, avatar) => {
     return data;
   });
 };
+
+export { request, checkResponse, baseUrl };
