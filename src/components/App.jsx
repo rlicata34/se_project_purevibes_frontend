@@ -17,8 +17,8 @@ import {
   getBookmarkedEvents,
   bookmarkEvent,
   removeBookmark,
-  addEvent,
-  removeEvent,
+  // addEvent,
+  // removeEvent,
 } from "../utils/api";
 import { getEvents, filterEventsData } from "../utils/ticketmasterApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -117,6 +117,7 @@ function App() {
     removeToken();
     setIsLoggedIn(false);
     clearCurrentUser();
+    setBookmarkedEvents([]);
     setSearchResults([]);
     setHasSearched(false);
     console.log("User logged out successfully");
@@ -143,7 +144,6 @@ function App() {
 
     if (isBookmarked) {
       removeBookmark(eventId, userToken)
-        .then(() => removeEvent(eventId, userToken))
         .then(() => {
           setBookmarkedEvents((prev) =>
             prev.filter((evt) => evt.eventId !== eventId)
@@ -153,8 +153,7 @@ function App() {
           console.error("Error removing event", err);
         });
     } else {
-      addEvent(image, name, startDateTime, venue, url, eventId, userToken)
-        .then(() => bookmarkEvent(eventId, userToken))
+      bookmarkEvent(eventId, userToken, image, name, startDateTime, venue, url)
         .then((updatedEvent) => {
           setBookmarkedEvents((prev) => [...prev, updatedEvent]);
         })
@@ -212,7 +211,7 @@ function App() {
         if (data.token) {
           setToken(data.token);
           setIsLoggedIn(true);
-          setCurrentUser({ username, email, avatar });
+          setCurrentUser({ username, email, avatar, _id });
           closeModal();
           console.log("Auth token stored successfully:", data.token);
         } else {
@@ -247,6 +246,10 @@ function App() {
         setIsLoggedIn(true);
         closeModal();
         console.log("Logged in successfully");
+        return getBookmarkedEvents(getToken());
+      })
+      .then((events) => {
+        setBookmarkedEvents(events);
       })
       .catch((err) => {
         console.error("Login failed:", err);
