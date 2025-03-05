@@ -19,36 +19,38 @@ function Profile({
   const pluralEvents = "events";
 
   return (
-    <div className="profile">
-      <Navigation
-        isLoggedIn={isLoggedIn}
-        handleLogout={handleLogout}
-        handleMenuClick={handleMenuClick}
-      />
-      <div className="profile__content">
-        <h2 className="profile__title">{`${
-          currentUser.username
-        }, you have ${savedEventsNumber} saved ${
-          savedEventsNumber === 1 ? singularEvent : pluralEvents
-        }`}</h2>
-        {bookmarkedEvents.length > 0 ? (
-          <ul className="cards__list">
-            {bookmarkedEvents.map((event) => {
-              return (
-                <EventCard
-                  key={event.eventId}
-                  event={event}
-                  handleCardBookmark={handleCardBookmark}
-                  bookmarkedEvents={bookmarkedEvents}
-                />
-              );
-            })}
-          </ul>
-        ) : (
-          <p className="profile__text">No bookmarked events yet</p>
-        )}
-      </div>
-    </div>
+    <main>
+      <section className="profile">
+        <Navigation
+          isLoggedIn={isLoggedIn}
+          handleLogout={handleLogout}
+          handleMenuClick={handleMenuClick}
+        />
+        <div className="profile__content">
+          <h1 className="profile__title">{`${
+            currentUser.username
+          }, you have ${savedEventsNumber} saved ${
+            savedEventsNumber === 1 ? singularEvent : pluralEvents
+          }`}</h1>
+          {bookmarkedEvents.length > 0 ? (
+            <ul className="cards__list">
+              {bookmarkedEvents.map((event) => {
+                return (
+                  <EventCard
+                    key={event.eventId}
+                    event={event}
+                    handleCardBookmark={handleCardBookmark}
+                    bookmarkedEvents={bookmarkedEvents}
+                  />
+                );
+              })}
+            </ul>
+          ) : (
+            <p className="profile__text">No bookmarked events yet</p>
+          )}
+        </div>
+      </section>
+    </main>
   );
 }
 

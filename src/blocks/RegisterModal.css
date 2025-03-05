@@ -3,7 +3,8 @@
   cursor: pointer;
   position: absolute;
   bottom: 28px;
-  left: 95px;
+  left: 50%;
+  transform: translate(-50%, 0);
   padding: 0;
   border: none;
   background-color: #fff;
