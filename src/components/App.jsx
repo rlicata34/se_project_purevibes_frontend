@@ -211,7 +211,7 @@ function App() {
         if (data.token) {
           setToken(data.token);
           setIsLoggedIn(true);
-          setCurrentUser({ username, email, avatar, _id });
+          setCurrentUser({ username, email, avatar });
           closeModal();
           console.log("Auth token stored successfully:", data.token);
         } else {
