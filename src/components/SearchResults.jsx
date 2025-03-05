@@ -41,7 +41,7 @@ function SearchResults({
         {events.map((event) => {
           return (
             <EventCard
-              key={event.url}
+              key={event.eventId}
               event={event}
               handleCardBookmark={handleCardBookmark}
               bookmarkedEvents={bookmarkedEvents}

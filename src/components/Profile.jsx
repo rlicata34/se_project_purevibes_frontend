@@ -36,7 +36,7 @@ function Profile({
             {bookmarkedEvents.map((event) => {
               return (
                 <EventCard
-                  key={event.url}
+                  key={event.eventId}
                   event={event}
                   handleCardBookmark={handleCardBookmark}
                   bookmarkedEvents={bookmarkedEvents}
@@ -45,7 +45,7 @@ function Profile({
             })}
           </ul>
         ) : (
-          <p className="profile__text">No bookmarked events yet.</p>
+          <p className="profile__text">No bookmarked events yet</p>
         )}
       </div>
     </div>

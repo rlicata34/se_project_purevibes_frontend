@@ -8,6 +8,10 @@
   line-height: 1.15;
 }
 
+.profile__text {
+  color: #fff;
+}
+
 @media screen and (max-width: 450px) {
   .profile__content {
     padding: 0 15px;

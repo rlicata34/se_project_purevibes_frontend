@@ -1,7 +1,9 @@
 import "../blocks/EventCard.css";
 
 function EventCard({ event, handleCardBookmark, bookmarkedEvents }) {
-  const isBookmarked = bookmarkedEvents.some((evt) => evt.url === event.url);
+  const isBookmarked = bookmarkedEvents.some(
+    (evt) => evt.eventId === event.eventId
+  );
 
   let formattedDate;
   if (!event.startDateTime || isNaN(Date.parse(event.startDateTime))) {
