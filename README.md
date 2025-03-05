@@ -23,6 +23,11 @@ PureVibes is a modern event discovery app that allows users to search for events
 - Responsive UI: Optimized for desktop and mobile
 - Error Handling: Displays messages for no results and server errors
 
+## Future improvements
+
+- Add Update user functionality to the Profile page. That way they could alter their username or avatar image after account creation.
+- Modify the Profile page to be more visually appealing.
+
 ## Link to backend repository
 
 https://github.com/rlicata34/se_project_purevibes_backend
