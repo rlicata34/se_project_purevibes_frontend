@@ -10,6 +10,20 @@ function checkResponse(res) {
   return Promise.reject(`Error: ${res.status}, ${error.message}`);
 }
 
+export const getArtistSuggestions = (query) => {
+  const q = (query || "").trim();
+
+  // guard clause: don’t hit backend for tiny input
+  if (q.length < 3) {
+    return Promise.resolve([]);
+  }
+
+  const url = new URL(`${baseUrl}/api/suggestions/artists`);
+  url.searchParams.append("query", q);
+
+  return fetch(url.toString()).then(checkResponse);
+};
+
 export const getEvents = ({ artist, genre, stateCode, startDate, endDate }) => {
   const url = new URL(`${baseUrl}/api/events`);
 
