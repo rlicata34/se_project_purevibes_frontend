@@ -1,9 +1,15 @@
 .nav {
+  z-index: 2;
+  position: relative;
+}
+
+.nav__content {
   display: flex;
   align-items: center;
   padding: 15px 0 0;
   margin: 0 60px 0;
   font-size: 18px;
+  position: relative;
 }
 
 .nav__logo {

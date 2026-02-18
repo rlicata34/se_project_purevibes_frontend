@@ -28,8 +28,8 @@ function Navigation({
   };
 
   return (
-    <>
-      <nav className="nav">
+    <div className="nav">
+      <nav className="nav__content">
         <Link to="/">
           <img src={logo} alt="logo" className="nav__logo" />
         </Link>
@@ -81,7 +81,7 @@ function Navigation({
         ></button>
       </nav>
       <span className="nav__border"></span>
-    </>
+    </div>
   );
 }
 
