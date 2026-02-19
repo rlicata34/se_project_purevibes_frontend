@@ -50,7 +50,9 @@
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
 }
 
 .results__error-button:hover {
@@ -88,7 +90,9 @@
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
 }
 
 .results-not-found__button:hover {
@@ -113,6 +117,10 @@
 @media screen and (max-width: 450px) {
   .results {
     padding: 40px 15px 0;
+  }
+
+  .results__title {
+    text-align: center;
   }
 
   .cards__list {

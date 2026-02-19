@@ -69,21 +69,29 @@
 
 @media screen and (max-width: 875px) {
   .header {
-    background: url("../assets/low-res-background.jpg") center no-repeat;
-    height: 550px;
+    height: 600px;
     background-size: cover;
   }
 
+  .header__body {
+    padding: 0;
+  }
+
   .header__title {
-    margin: 90px auto 0;
+    margin: 90px 40px 0;
+    font-size: 40px;
   }
 
   .header__text {
-    margin: 30px auto 0;
+    margin: 30px 40px 0;
+    font-size: 25px;
   }
 
   .header__form-button {
-    margin: 50px auto 0;
+    padding: 20px 25px;
+    width: 280px;
+    font-size: 30px;
+    margin: 50px 40px 0;
   }
 }
 
@@ -97,6 +105,14 @@
   .header__text {
     font-size: 18px;
     text-align: center;
+    margin: 30px auto 0;
     padding: 0 15px;
+  }
+
+  .header__form-button {
+    padding: 15px 20px;
+    width: 230px;
+    font-size: 25px;
+    margin: 50px auto 0;
   }
 }

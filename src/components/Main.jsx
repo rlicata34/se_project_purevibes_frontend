@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import Preloader from "./Preloader";
 import SearchResults from "./SearchResults";
 import About from "./About";
@@ -16,12 +17,23 @@ function Main({
   bookmarkedEvents,
   searchError,
 }) {
+  const resultsRef = useRef(null);
+
+  useEffect(() => {
+    if (hasSearched && !isLoading && resultsRef.current) {
+      resultsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [hasSearched, isLoading]);
+
   return (
     <main className="content">
       {isLoading && showPreloader ? (
         <Preloader isLoading={isLoading} />
       ) : (
-        <section className="search-results">
+        <section ref={resultsRef} className="search-results">
           <SearchResults
             events={searchresults}
             hasSearched={hasSearched}
